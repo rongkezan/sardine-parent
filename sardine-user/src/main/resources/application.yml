@@ -1,0 +1,31 @@
+server:
+  port: 5002
+spring:
+  application:
+    name: sardine-user
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.97.116.169:3306/tripper?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+  rabbitmq:
+    host: 47.97.116.169
+    username: admin
+    password: admin
+    virtual-host: /sardine
+  redis:
+    host: 47.97.116.169
+eureka:
+  client:
+    service-url:
+      defaultZone: http://47.97.116.169:5000/eureka
+  instance:
+    ip-address: 127.0.0.1
+    prefer-ip-address: true
+sardine:
+  jwt:
+    secret: tripper@login&admin)secret^/
+    pubKeyPath: D:\tripper-rsa\rsa.pub
+    priKeyPath: D:\tripper-rsa\rsa.pri
+    expire: 30  # 过期时间30分钟
+    cookieName: SarineToken

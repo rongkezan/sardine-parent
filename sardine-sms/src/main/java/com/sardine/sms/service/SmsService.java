@@ -6,10 +6,7 @@ package com.sardine.sms.service;
 public interface SmsService {
     /**
      * 发送短信
-     * @param signName
-     * @param templateCode
-     * @param phoneNumber
-     * @param templateParam
+     * @param phone 手机号
      */
-    void sendSms(String signName, String templateCode, String phoneNumber, String templateParam);
+    void sendSms(String phone);
 }

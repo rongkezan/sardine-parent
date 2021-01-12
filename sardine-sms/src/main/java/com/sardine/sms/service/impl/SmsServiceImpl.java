@@ -8,6 +8,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.sardine.common.constants.RedisConstants;
+import com.sardine.common.util.JacksonUtils;
 import com.sardine.sms.prop.SmsProperties;
 import com.sardine.sms.service.SmsService;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -34,39 +36,57 @@ public class SmsServiceImpl implements SmsService {
     /* 最小发送时间间隔(ms) */
     private static final long MIN_INTERVAL = 30000;
 
-    @Override
-    public void sendSms(String signName, String templateCode, String phoneNumber, String templateParam) {
-        String key = RedisConstants.SMS_PHONE + phoneNumber;
+    private static final String SYS_DOMAIN = "dysmsapi.aliyuncs.com";
 
-        //按照手机号码限流
-        String lastTime = stringRedisTemplate.opsForValue().get(key);
-        if(!StringUtils.isEmpty(lastTime)){
+    private static final String SYS_VERSION = "2017-05-25";
+
+    private static final String SYS_ACTION = "SendSms";
+
+    private static final String REGION_ID = "cn-hangzhou";
+
+    private static final String SIGN_NAME = "乐音";
+
+    @Override
+    public void sendSms(String phone) {
+        String codeValueKey = RedisConstants.USER_PHONE_CODE_VALUE + phone;
+        String codeTimeKey =RedisConstants.USER_PHONE_CODE_TIMESTAMP + phone;
+
+        // 按照手机号码限流
+        String lastTime = stringRedisTemplate.opsForValue().get(codeTimeKey);
+        if (!StringUtils.isEmpty(lastTime)) {
             long last = Long.parseLong(lastTime);
-            if(System.currentTimeMillis() - last < MIN_INTERVAL){
-                log.info("[短信服务] 发送短信频率过高，被阻止，手机号码：{}", phoneNumber);
+            if (System.currentTimeMillis() - last < MIN_INTERVAL) {
+                log.info("[短信服务] 发送短信频率过高，被阻止，手机号码：{}", phone);
                 return;
             }
         }
-        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", smsProperties.getAccessKeyId(), smsProperties.getAccessKeySecret());
-        IAcsClient client = new DefaultAcsClient(profile);
+
+        // 构造短信模板Json
+        String code = String.valueOf((int) ((Math.random() * 9 + 1) * 100000));
+        String templateParam = JacksonUtils.toJson(Collections.singletonMap("code", code));
+
+        DefaultProfile profile = DefaultProfile.getProfile(REGION_ID,
+                smsProperties.getAccessKeyId(), smsProperties.getAccessKeySecret());
 
         CommonRequest request = new CommonRequest();
-        request.setMethod(MethodType.POST);
-        request.setDomain("dysmsapi.aliyuncs.com");
-        request.setVersion("2017-05-25");
-        request.setAction("SendSms");
-        request.putQueryParameter("RegionId", "cn-hangzhou");
-        request.putQueryParameter("PhoneNumbers", phoneNumber);
-        request.putQueryParameter("SignName", signName);
-        request.putQueryParameter("TemplateCode", templateCode);
+        request.setSysMethod(MethodType.POST);
+        request.setSysDomain(SYS_DOMAIN);
+        request.setSysVersion(SYS_VERSION);
+        request.setSysAction(SYS_ACTION);
+        request.putQueryParameter("RegionId", REGION_ID);
+        request.putQueryParameter("PhoneNumbers", phone);
+        request.putQueryParameter("SignName", SIGN_NAME);
+        request.putQueryParameter("TemplateCode", smsProperties.getTemplateCode());
         request.putQueryParameter("TemplateParam", templateParam);
+
         try {
+            IAcsClient client = new DefaultAcsClient(profile);
             CommonResponse response = client.getCommonResponse(request);
-            log.info("收到短信回执: {}", response);
-            //发送短信成功后写入redis，指定生存时间为1分钟
-            stringRedisTemplate.opsForValue().set(key, String.valueOf(System.currentTimeMillis()), 1, TimeUnit.MINUTES);
+            stringRedisTemplate.opsForValue().set(codeValueKey, code, 1, TimeUnit.MINUTES);
+            stringRedisTemplate.opsForValue().set(codeTimeKey, String.valueOf(System.currentTimeMillis()), 1, TimeUnit.MINUTES);
+            log.info(response.getData());
         } catch (ClientException e) {
-            log.error("[短信服务] 发送短信失败，手机号：{}", phoneNumber, e);
+            log.error("短信发送异常", e);
         }
     }
 }

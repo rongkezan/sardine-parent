@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "sardine.sms")
 public class SmsProperties {
 
-    String accessKeyId;
+    private String accessKeyId;
 
-    String accessKeySecret;
+    private String accessKeySecret;
 
-    String signName;
+    private String signName;
 
-    String verifyCodeTemplate;
+    private String templateCode;
 }

@@ -27,9 +27,8 @@ public interface UserService {
     /**
      * 插入一条记录
      * @param userVo    用户信息
-     * @param code      验证码
      */
-    void insertOne(UserVo userVo, String code);
+    void insertOne(UserVo userVo);
 
     /**
      * 验证用户名密码是否合法
@@ -38,4 +37,10 @@ public interface UserService {
      * @return
      */
     String identify(String username, String password);
+
+    /**
+     * 发送手机验证码
+     * @param phone 手机号
+     */
+    void sendCode(String phone);
 }

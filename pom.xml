@@ -9,6 +9,7 @@
         <module>sardine-user</module>
         <module>sardine-cookbook</module>
         <module>sardine-sms</module>
+        <module>sardine-file</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

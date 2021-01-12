@@ -5,7 +5,9 @@ package com.sardine.common.constants;
  */
 public abstract class RedisConstants {
 
-    public static final String USER_VERIFY_PHONE = "user:verify:phone:";
+    /* 短信验证码值 */
+    public static final String USER_PHONE_CODE_VALUE = "user.phone.code.value:";
 
-    public static final String SMS_PHONE = "sms:phone:";
+    /* 短信验证码时间戳 */
+    public static final String USER_PHONE_CODE_TIMESTAMP = "user.phone.code.timestamp:";
 }

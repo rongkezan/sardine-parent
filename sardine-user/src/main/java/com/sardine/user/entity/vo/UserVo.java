@@ -10,8 +10,6 @@ import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 public class UserVo implements Serializable {
 
     /* 手机号 */
@@ -23,4 +21,7 @@ public class UserVo implements Serializable {
     @NotEmpty(message = "密码不能为空")
     @Length(min = 6, max = 32, message = "密码长度必须在4-32位")
     private String password;
+
+    @Length(min = 6, max = 6, message = "验证码必须是6位")
+    private String code;
 }

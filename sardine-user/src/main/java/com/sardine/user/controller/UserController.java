@@ -18,8 +18,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.stream.Collectors;
 
@@ -41,8 +39,7 @@ public class UserController {
 
     @PostMapping("login")
     @ApiOperation("登录")
-    public CommonResult<String> login(@Valid @RequestBody UserVo userVo, BindingResult result,
-                                      HttpServletRequest request, HttpServletResponse response) {
+    public CommonResult<String> login(@Valid @RequestBody UserVo userVo, BindingResult result) {
         if (result.hasFieldErrors())
             throw new SardineRuntimeException(result.getFieldErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
@@ -55,14 +52,20 @@ public class UserController {
 
     @PostMapping("signup")
     @ApiOperation("注册")
-    public CommonResult<Boolean> signup(@Valid @RequestBody UserVo userVo, BindingResult result,
-                                        @RequestParam("code") String code){
+    public CommonResult<Boolean> signup(@Valid @RequestBody UserVo userVo, BindingResult result){
         if (result.hasFieldErrors())
             throw new SardineRuntimeException(result.getFieldErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .collect(Collectors.joining("|")));
-        userService.insertOne(userVo, code);
-        return CommonResult.success("创建用户成功");
+        userService.insertOne(userVo);
+        return CommonResult.success("用户注册成功");
+    }
+
+    @PostMapping("code")
+    @ApiOperation("发送手机验证码")
+    public CommonResult<Void> code(String phone){
+        userService.sendCode(phone);
+        return CommonResult.success();
     }
 
     @PostMapping("identify")

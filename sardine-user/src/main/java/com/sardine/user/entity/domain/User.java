@@ -24,16 +24,16 @@ public class User implements Serializable {
     private Long id;
 
     /* 创建时间 */
-    private LocalDateTime createTime;
+    private LocalDateTime createTime = LocalDateTime.now();
 
     /* 修改时间 */
-    private LocalDateTime updateTime;
+    private LocalDateTime updateTime = LocalDateTime.now();
 
     /* 版本号 */
-    private Integer version;
+    private Integer version = 1;
 
     /* 是否已删除 */
-    private Boolean isDelete;
+    private Boolean isDelete = false;
 
     /* 手机号 */
     @NotEmpty(message = "用户名不能为空")

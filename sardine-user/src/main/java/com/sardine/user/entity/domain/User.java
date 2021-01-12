@@ -13,10 +13,8 @@ import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@TableName("tb_user")
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
+@TableName("tb_user")
 public class User implements Serializable {
 
     /* 主键 */

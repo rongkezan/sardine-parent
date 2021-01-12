@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
             throw new SardineRuntimeException("该用户名已存在");
         User user = BeanCopyUtils.copyBean(userVo, User::new);
         String encodePassword = CodecUtils.passwordEncode(userVo.getUsername().trim(), userVo.getPassword().trim());
-        user.setPassword(encodePassword).setCreateTime(LocalDateTime.now()).setUpdateTime(LocalDateTime.now());
+        user.setPassword(encodePassword);
         userMapper.insert(user);
         stringRedisTemplate.delete(RedisConstants.USER_PHONE_CODE_VALUE + userVo.getUsername());
     }

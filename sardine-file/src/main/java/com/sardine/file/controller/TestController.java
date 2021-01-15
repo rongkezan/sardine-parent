@@ -1,12 +1,15 @@
 package com.sardine.file.controller;
 
+import com.sardine.common.constants.MdcConstants;
 import com.sardine.common.entity.http.CommonResult;
 import com.sardine.common.exception.SardineRuntimeException;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,5 +63,10 @@ public class TestController {
                 log.error("close file output stream exception", e);
             }
         }
+    }
+
+    @GetMapping("hello")
+    public CommonResult<String> hello(){
+        return CommonResult.success("成功","Hello World");
     }
 }

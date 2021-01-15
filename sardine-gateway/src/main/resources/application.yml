@@ -11,6 +11,7 @@ zuul:
   routes:
     sardine-user: /user/**
     sardine-cookbook: /cookbook/**
+    sardine-file: /file/**
   prefix: /api
   add-host-header: true # 携带域名信息
   sensitive-headers:    # 忽略头信息

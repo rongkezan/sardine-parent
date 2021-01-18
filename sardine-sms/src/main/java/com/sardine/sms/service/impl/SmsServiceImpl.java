@@ -9,14 +9,14 @@ import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.sardine.common.constants.RedisConstants;
 import com.sardine.common.util.JacksonUtils;
-import com.sardine.sms.prop.SmsProperties;
+import com.sardine.sms.prop.AliyunSmsProperties;
 import com.sardine.sms.service.SmsService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
@@ -27,10 +27,10 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class SmsServiceImpl implements SmsService {
 
-    @Resource
-    SmsProperties smsProperties;
+    @Autowired
+    AliyunSmsProperties aliyunSmsProperties;
 
-    @Resource
+    @Autowired
     StringRedisTemplate stringRedisTemplate;
 
     /* 最小发送时间间隔(ms) */
@@ -66,7 +66,7 @@ public class SmsServiceImpl implements SmsService {
         String templateParam = JacksonUtils.toJson(Collections.singletonMap("code", code));
 
         DefaultProfile profile = DefaultProfile.getProfile(REGION_ID,
-                smsProperties.getAccessKeyId(), smsProperties.getAccessKeySecret());
+                aliyunSmsProperties.getAccessKeyId(), aliyunSmsProperties.getAccessKeySecret());
 
         CommonRequest request = new CommonRequest();
         request.setSysMethod(MethodType.POST);
@@ -76,7 +76,7 @@ public class SmsServiceImpl implements SmsService {
         request.putQueryParameter("RegionId", REGION_ID);
         request.putQueryParameter("PhoneNumbers", phone);
         request.putQueryParameter("SignName", SIGN_NAME);
-        request.putQueryParameter("TemplateCode", smsProperties.getTemplateCode());
+        request.putQueryParameter("TemplateCode", aliyunSmsProperties.getTemplateCode());
         request.putQueryParameter("TemplateParam", templateParam);
 
         try {

@@ -6,7 +6,6 @@ import com.netflix.zuul.exception.ZuulException;
 import com.sardine.common.client.UserClient;
 import com.sardine.common.constants.MdcConstants;
 import com.sardine.common.entity.dto.UserDto;
-import com.sardine.common.exception.SardineAssert;
 import com.sardine.gateway.prop.AuthProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpStatus;

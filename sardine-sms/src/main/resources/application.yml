@@ -11,8 +11,9 @@ spring:
   redis:
     host: 47.97.116.169
 sardine:
-  sms:
-    accessKeyId: LTAI4Ft2uBoT3jmgsCeqhgWS
-    accessKeySecret: gnkRFKUH06iqJdHpBFEx0c7m65grZe
-    signName: sardine
-    templateCode: SMS_175532645
+  aliyun:
+    sms:
+      sign-name: sardine
+      template-code: SMS_175532645
+      access-key-id: LTAI4Ft2uBoT3jmgsCeqhgWS
+      access-key-secret: gnkRFKUH06iqJdHpBFEx0c7m65grZe

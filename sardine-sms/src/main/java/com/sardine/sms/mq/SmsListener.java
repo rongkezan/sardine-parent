@@ -1,9 +1,6 @@
 package com.sardine.sms.mq;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sardine.common.constants.MqConstants;
-import com.sardine.sms.prop.SmsProperties;
 import com.sardine.sms.service.SmsService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

@@ -42,6 +42,12 @@
 			<artifactId>spring-cloud-starter-sleuth</artifactId>
 		</dependency>
 
+		<!-- Spring Cloud Config Client -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-client</artifactId>
+		</dependency>
+
 		<!-- Spring Boot Configuration Processor -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

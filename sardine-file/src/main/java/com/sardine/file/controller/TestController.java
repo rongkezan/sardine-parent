@@ -1,18 +1,14 @@
 package com.sardine.file.controller;
 
-import com.sardine.common.constants.MdcConstants;
 import com.sardine.common.entity.http.CommonResult;
 import com.sardine.common.exception.SardineRuntimeException;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -23,8 +19,12 @@ import java.io.IOException;
  * @author keith
  */
 @Slf4j
-@RestController("test")
+@RestController
+@RequestMapping("test")
 public class TestController {
+
+    @Value("${server.port}")
+    String serverPort;
 
     @PostMapping("upload")
     public CommonResult<Void> upload(@RequestParam("file") MultipartFile file) {
@@ -67,6 +67,6 @@ public class TestController {
 
     @GetMapping("hello")
     public CommonResult<String> hello(){
-        return CommonResult.success("成功","Hello World");
+        return CommonResult.success("成功",serverPort);
     }
 }

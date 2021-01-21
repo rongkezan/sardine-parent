@@ -1,6 +1,22 @@
 spring:
   profiles:
-    active: 01
+    active: single
+
+---
+server:
+  port: 5000
+spring:
+  application:
+    name: sardine-registry
+  profiles: single
+eureka:
+  instance:
+    hostname: eureka1.com
+  client:
+    service-url:
+      defaultZone: http://eureka1.com:5000/eureka
+    register-with-eureka: false # å•èŠ‚ç‚¹çš„ eureka ä¸æ³¨å†Œè‡ªå·±
+    fetch-registry: false
 
 ---
 server:
@@ -8,15 +24,13 @@ server:
 spring:
   application:
     name: sardine-registry
-  profiles: 01
+  profiles: eu01
 eureka:
   instance:
     hostname: eureka1.com
   client:
     service-url:
       defaultZone: http://eureka2.com:5002/eureka
-#    register-with-eureka: false # ²»×¢²á×Ô¼º
-#    fetch-registry: false
 
 ---
 server:
@@ -24,12 +38,10 @@ server:
 spring:
   application:
     name: sardine-registry
-  profiles: 02
+  profiles: eu02
 eureka:
   instance:
     hostname: eureka2.com
   client:
     service-url:
       defaultZone: http://eureka1.com:5001/eureka
-#    register-with-eureka: false # ²»×¢²á×Ô¼º
-#    fetch-registry: false

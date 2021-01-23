@@ -24,6 +24,12 @@
             <artifactId>spring-cloud-config-server</artifactId>
         </dependency>
 
+        <!-- Spring Cloud Bus Amqp -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+        </dependency>
+
         <!-- Spring Boot Actuator -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

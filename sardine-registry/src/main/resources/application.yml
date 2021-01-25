@@ -1,6 +1,22 @@
 spring:
   profiles:
-    active: eu01
+    active: single
+
+---
+server:
+  port: 5000
+spring:
+  application:
+    name: sardine-registry
+  profiles: single
+eureka:
+  instance:
+    hostname: eureka1.com
+  client:
+    service-url:
+      defaultZone: http://eureka1.com:5000/eureka
+    register-with-eureka: false # 单节点的 eureka 不注册自己
+    fetch-registry: false
 
 ---
 server:
@@ -15,8 +31,6 @@ eureka:
   client:
     service-url:
       defaultZone: http://eureka2.com:5002/eureka
-#    register-with-eureka: false # 不注册自己
-#    fetch-registry: false
 
 ---
 server:
@@ -31,5 +45,3 @@ eureka:
   client:
     service-url:
       defaultZone: http://eureka1.com:5001/eureka
-#    register-with-eureka: false # 不注册自己
-#    fetch-registry: false

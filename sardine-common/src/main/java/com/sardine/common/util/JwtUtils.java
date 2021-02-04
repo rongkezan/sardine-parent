@@ -1,7 +1,7 @@
 package com.sardine.common.util;
 
 import com.sardine.common.constants.JwtConstants;
-import com.sardine.common.entity.dto.UserDto;
+import com.sardine.common.entity.domain.UserDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;

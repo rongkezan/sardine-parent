@@ -3,13 +3,14 @@ package com.sardine.gateway.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
-import com.sardine.common.client.UserClient;
 import com.sardine.common.constants.MdcConstants;
-import com.sardine.common.entity.dto.UserDto;
+import com.sardine.common.entity.domain.UserDto;
 import com.sardine.gateway.prop.AuthProperties;
+import com.sardine.user.api.client.UserClient;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpStatus;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +26,7 @@ public class LoginFilter extends ZuulFilter {
     @Resource
     AuthProperties authProperties;
 
-    @Resource
+    @Autowired
     UserClient userClient;
 
     /**

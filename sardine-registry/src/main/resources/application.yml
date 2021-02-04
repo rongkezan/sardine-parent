@@ -15,7 +15,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://eureka1.com:5000/eureka
-    register-with-eureka: false # 单节点的 eureka 不注册自己
+    register-with-eureka: false
     fetch-registry: false
 
 ---

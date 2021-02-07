@@ -67,7 +67,7 @@ public class LoginFilter extends ZuulFilter {
         String token = request.getHeader(authProperties.getTokenName());
         if (StringUtils.isBlank(token))
             return noAuthorization(context);
-        UserDto user = userClient.identify(token).getData();
+        UserDto user = userClient.identify(token).getRecord();
         if (user == null)
             return noAuthorization(context);
         MDC.put(MdcConstants.MDC_KEY_USERNAME, user.getUsername());

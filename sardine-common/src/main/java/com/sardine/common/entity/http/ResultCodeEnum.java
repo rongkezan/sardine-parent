@@ -14,6 +14,6 @@ public enum ResultCodeEnum {
     NO_AUTHORIZATION(401, "未授权"),
     FAILED(500, "内部错误");
 
-    private Integer code;
-    private String message;
+    private final int code;
+    private final String message;
 }

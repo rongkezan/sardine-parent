@@ -11,19 +11,26 @@ import java.io.Serializable;
 public class CommonResult<T> implements Serializable {
     private static final long serialVersionUID = -8940366960899264819L;
 
-    private Integer code;
+    /* 返回码 */
+    private int code;
+
+    /* 返回信息 */
     private String msg;
+
+    /* 追踪码 */
     private String traceId;
-    private T data;
+
+    /* 记录 */
+    private T record;
 
     public CommonResult() {
 
     }
 
-    public CommonResult(Integer code, String msg, T data) {
+    public CommonResult(int code, String msg, T record) {
         this.code = code;
         this.msg = msg;
-        this.data = data;
+        this.record = record;
     }
 
     public static <T> CommonResult<T> success(){
@@ -34,12 +41,12 @@ public class CommonResult<T> implements Serializable {
         return new CommonResult<>(ResultCodeEnum.SUCCESS.getCode(), msg, null);
     }
 
-    public static <T> CommonResult<T> success(T data){
-        return new CommonResult<>(ResultCodeEnum.SUCCESS.getCode(), ResultCodeEnum.SUCCESS.getMessage(), data);
+    public static <T> CommonResult<T> success(T record){
+        return new CommonResult<>(ResultCodeEnum.SUCCESS.getCode(), ResultCodeEnum.SUCCESS.getMessage(), record);
     }
 
-    public static <T> CommonResult<T> success(String msg, T data){
-        return new CommonResult<>(ResultCodeEnum.SUCCESS.getCode(), msg, data);
+    public static <T> CommonResult<T> success(String msg, T record){
+        return new CommonResult<>(ResultCodeEnum.SUCCESS.getCode(), msg, record);
     }
 
     public static <T> CommonResult<T> failed(){
@@ -50,11 +57,11 @@ public class CommonResult<T> implements Serializable {
         return new CommonResult<>(ResultCodeEnum.FAILED.getCode(), msg, null);
     }
 
-    public static <T> CommonResult<T> failed(T data){
-        return new CommonResult<>(ResultCodeEnum.FAILED.getCode(), ResultCodeEnum.FAILED.getMessage(), data);
+    public static <T> CommonResult<T> failed(T record){
+        return new CommonResult<>(ResultCodeEnum.FAILED.getCode(), ResultCodeEnum.FAILED.getMessage(), record);
     }
 
-    public static <T> CommonResult<T> failed(String msg, T data){
-        return new CommonResult<>(ResultCodeEnum.FAILED.getCode(), msg, data);
+    public static <T> CommonResult<T> failed(String msg, T record){
+        return new CommonResult<>(ResultCodeEnum.FAILED.getCode(), msg, record);
     }
 }

@@ -8,6 +8,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 /**
+ * Bean复制工具类
+ * 如果是使用 @Builder 或 @Accessors(chain = true) 则无法使用该工具类进行复制
+ *
  * @author keith
  */
 public class BeanCopyUtils {

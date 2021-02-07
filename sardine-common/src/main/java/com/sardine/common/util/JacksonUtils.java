@@ -20,7 +20,7 @@ public class JacksonUtils {
         try {
             return mapper.readValue(json, clazz);
         } catch (JsonProcessingException e) {
-            throw new SardineRuntimeException("Json convert to com.sardine.user.app.entity exception", e);
+            throw new SardineRuntimeException("Json convert to entity exception", e);
         }
     }
 
@@ -31,7 +31,7 @@ public class JacksonUtils {
         try {
             return mapper.readValue(json, mapper.getTypeFactory().constructParametricType(List.class, clazz));
         } catch (JsonProcessingException e) {
-            throw new SardineRuntimeException("Json convert to com.sardine.user.app.entity exception", e);
+            throw new SardineRuntimeException("Json convert to entity exception", e);
         }
     }
 

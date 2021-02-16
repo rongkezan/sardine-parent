@@ -23,11 +23,14 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class LoginFilter extends ZuulFilter {
 
-    @Resource
-    AuthProperties authProperties;
+    private final AuthProperties authProperties;
 
-    @Autowired
-    UserClient userClient;
+    private final UserClient userClient;
+
+    public LoginFilter(AuthProperties authProperties, UserClient userClient) {
+        this.authProperties = authProperties;
+        this.userClient = userClient;
+    }
 
     /**
      * 过滤器的类型: pre route post error
@@ -50,7 +53,10 @@ public class LoginFilter extends ZuulFilter {
      */
     @Override
     public boolean shouldFilter() {
-        String uri = RequestContext.getCurrentContext().getRequest().getRequestURI();
+        RequestContext context = RequestContext.getCurrentContext();
+        if (context == null || !context.sendZuulResponse())
+            return false;
+        String uri = context.getRequest().getRequestURI();
         for (String allowPath : authProperties.getAllowedPaths())
             if(uri.startsWith(allowPath))
                 return false;
@@ -61,7 +67,7 @@ public class LoginFilter extends ZuulFilter {
      * 过滤器的业务逻辑
      */
     @Override
-    public Object run() throws ZuulException {
+    public Object run() {
         RequestContext context = RequestContext.getCurrentContext();
         HttpServletRequest request = context.getRequest();
         String token = request.getHeader(authProperties.getTokenName());

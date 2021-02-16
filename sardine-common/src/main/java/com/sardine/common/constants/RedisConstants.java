@@ -1,7 +1,7 @@
 package com.sardine.common.constants;
 
 /**
- * redis key常量类
+ * Redis key constants
  */
 public abstract class RedisConstants {
 

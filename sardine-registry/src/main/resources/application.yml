@@ -11,6 +11,23 @@ eureka:
 logging:
   level:
     com.netflix: warn
+
+---
+server:
+  port: 7000
+spring:
+  application:
+    name: sardine-registry
+  profiles: dev
+eureka:
+  instance:
+    hostname: eureka1.com
+  client:
+    service-url:
+      defaultZone: http://eureka1.com:7000/eureka
+    fetch-registry: false
+    register-with-eureka: false
+
 ---
 server:
   port: 7001

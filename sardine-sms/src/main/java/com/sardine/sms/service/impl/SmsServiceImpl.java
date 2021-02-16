@@ -20,18 +20,15 @@ import org.springframework.util.StringUtils;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
-/**
- * 短信服务
- */
 @Slf4j
 @Service
 public class SmsServiceImpl implements SmsService {
 
     @Autowired
-    AliyunSmsProperties aliyunSmsProperties;
+    private AliyunSmsProperties aliyunSmsProperties;
 
     @Autowired
-    StringRedisTemplate stringRedisTemplate;
+    private StringRedisTemplate stringRedisTemplate;
 
     /* 最小发送时间间隔(ms) */
     private static final long MIN_INTERVAL = 30000;
@@ -62,7 +59,7 @@ public class SmsServiceImpl implements SmsService {
         }
 
         // 构造短信模板Json
-        String code = String.valueOf((int) ((Math.random() * 9 + 1) * 100000));
+        String code = String.valueOf((int) ((Math.random() * 9 + 1) * Math.pow(10, 5)));
         String templateParam = JacksonUtils.toJson(Collections.singletonMap("code", code));
 
         DefaultProfile profile = DefaultProfile.getProfile(REGION_ID,

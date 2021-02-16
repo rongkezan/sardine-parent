@@ -74,7 +74,7 @@ public class UserController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "token", value = "token令牌")
     })
-    public CommonResult<UserDto> identify(@RequestParam(value = "token", required = false) String token) {
+    public CommonResult<UserDto> identify(@RequestParam String token) {
         UserDto userInfo = null;
         try {
             userInfo = JwtUtils.getInfoFromToken(token, jwtProperties.getPublicKey());

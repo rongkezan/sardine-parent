@@ -1,47 +1,54 @@
-spring:
-  profiles:
-    active: single
-
+eureka:
+  server:
+    # 是否开启自我保护
+    enable-self-preservation: false
+    # 自我保护阈值
+    renewal-percent-threshold: 0.8
+    # Server剔除过期服务时间
+    eviction-interval-timer-in-ms: 1000
+    # 是否开启 read only 缓存
+    use-read-only-response-cache: true
+logging:
+  level:
+    com.netflix: warn
 ---
 server:
-  port: 5000
+  port: 7001
 spring:
   application:
     name: sardine-registry
-  profiles: single
+  profiles: eu1
 eureka:
   instance:
     hostname: eureka1.com
   client:
     service-url:
-      defaultZone: http://eureka1.com:5000/eureka
-    register-with-eureka: false
-    fetch-registry: false
+      defaultZone: http://eureka1.com:7001/eureka,http://eureka2.com:7002/eureka,http://eureka3.com:7003/eureka
 
 ---
 server:
-  port: 5001
+  port: 7002
 spring:
   application:
     name: sardine-registry
-  profiles: eu01
-eureka:
-  instance:
-    hostname: eureka1.com
-  client:
-    service-url:
-      defaultZone: http://eureka2.com:5002/eureka
-
----
-server:
-  port: 5002
-spring:
-  application:
-    name: sardine-registry
-  profiles: eu02
+  profiles: eu2
 eureka:
   instance:
     hostname: eureka2.com
   client:
     service-url:
-      defaultZone: http://eureka1.com:5001/eureka
+      defaultZone: http://eureka1.com:7001/eureka,http://eureka2.com:7002/eureka,http://eureka3.com:7003/eureka
+
+---
+server:
+  port: 7003
+spring:
+  application:
+    name: sardine-registry
+  profiles: eu3
+eureka:
+  instance:
+    hostname: eureka3.com
+  client:
+    service-url:
+      defaultZone: http://eureka1.com:7001/eureka,http://eureka2.com:7002/eureka,http://eureka3.com:7003/eureka

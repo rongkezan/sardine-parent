@@ -1,31 +1,33 @@
 package com.sardine.common.entity.http;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
 /**
- * 统一返回类
+ * Common return value of single record
  */
 @Data
+@Accessors(chain = true)
+@NoArgsConstructor
+@SuppressWarnings("unused")
 public class CommonResult<T> implements Serializable {
+
     private static final long serialVersionUID = -8940366960899264819L;
 
-    /* 返回码 */
+    /* Status code */
     private int code;
 
-    /* 返回信息 */
+    /* Message */
     private String msg;
 
-    /* 追踪码 */
+    /* This id can help you track logs */
     private String traceId;
 
-    /* 记录 */
+    /* Real data */
     private T record;
-
-    public CommonResult() {
-
-    }
 
     public CommonResult(int code, String msg, T record) {
         this.code = code;

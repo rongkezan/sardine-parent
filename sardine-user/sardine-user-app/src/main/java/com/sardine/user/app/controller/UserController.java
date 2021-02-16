@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 /**
@@ -86,5 +87,31 @@ public class UserController {
     @GetMapping("hello")
     public String hello(){
         return "Hello World";
+    }
+
+    public static void main(String[] args) {
+        ExecutorService pool = new ThreadPoolExecutor(
+                2, 5, 1L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(3),
+                Executors.defaultThreadFactory(), new ThreadPoolExecutor.CallerRunsPolicy());
+        try {
+            for (int i = 0; i < 10; i++) {
+                final int fi = i;
+                pool.execute(() -> {
+                    System.out.println(Thread.currentThread().getName() + "\t" + fi);
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            pool.shutdown();
+        }
+    }
+
+    static class MyThreadFactory implements ThreadFactory{
+
+        @Override
+        public Thread newThread(Runnable r) {
+            return new Thread();
+        }
     }
 }

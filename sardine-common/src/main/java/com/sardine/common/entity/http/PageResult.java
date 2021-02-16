@@ -4,36 +4,43 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
- * 分页返回结果
+ * Common return value of page
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PageResult<T> {
+@SuppressWarnings("unused")
+public class PageResult<T> implements Serializable {
 
-    /* 返回码 */
+    private static final long serialVersionUID = -8940366960899264820L;
+
+    /* Status code */
     private int code;
 
-    /* 返回信息 */
+    /* Message */
     private String msg;
 
-    /* 总记录数 */
+    /* Total record count */
     private int total;
 
-    /* 总页数 */
+    /* Total record page */
     private int totalPage;
 
-    /* 记录 */
+    /* This id can help you track logs */
+    private String traceId;
+
+    /* Real data */
     private List<T> records;
 
-    public static <T> PageResult<T> success(String msg, int total, int totalPage, List<T> records){
-        return new PageResult<>(ResultCodeEnum.SUCCESS.getCode(), msg, total, totalPage, records);
+    public static <T> PageResult<T> success(String msg, int total, int totalPage, String traceId, List<T> records){
+        return new PageResult<>(ResultCodeEnum.SUCCESS.getCode(), msg, total, totalPage, traceId, records);
     }
 
-    public static <T> PageResult<T> failed(String msg, int total, int totalPage, List<T> records){
-        return new PageResult<>(ResultCodeEnum.FAILED.getCode(), msg, total, totalPage, records);
+    public static <T> PageResult<T> failed(String msg, int total, int totalPage, String traceId, List<T> records){
+        return new PageResult<>(ResultCodeEnum.FAILED.getCode(), msg, total, totalPage, traceId, records);
     }
 }

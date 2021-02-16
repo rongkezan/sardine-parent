@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 返回状态枚举
+ * The enum to correlate status code and message
  */
 @Getter
 @AllArgsConstructor

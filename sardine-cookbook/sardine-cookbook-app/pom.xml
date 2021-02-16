@@ -19,6 +19,12 @@
             <version>1.0.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.sardine</groupId>
+            <artifactId>sardine-user-api</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
         <!-- Spring Boot Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -35,6 +41,12 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+
+        <!-- Spring Cloud Feign -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
         <!-- Spring Boot Configuration Processor -->

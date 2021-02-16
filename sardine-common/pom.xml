@@ -48,12 +48,6 @@
             <version>2.0.22</version>
         </dependency>
 
-        <!-- Spring Cloud Feign -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-
         <!-- Collection Commons -->
         <dependency>
             <groupId>commons-collections</groupId>

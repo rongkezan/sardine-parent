@@ -11,7 +11,14 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:5000/eureka
+      defaultZone: http://127.0.0.1:7000/eureka
   instance:
     ip-address: 127.0.0.1
     prefer-ip-address: true
+ribbon:
+  ConnectTimeout: 1000            # ribbon连接超时时长
+  ReadTimeout: 3000               # ribbon读取超时时长
+  MaxAutoRetries: 1               # 当前服务重试次数
+  MaxAutoRetriesNextServer: 1     # 切换服务重试次数
+  OkToRetryOnAllOperations: false # 是否所有操作都重试
+  MaxTotalConnections: 500        # 最大连接数

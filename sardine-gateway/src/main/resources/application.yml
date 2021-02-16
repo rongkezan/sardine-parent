@@ -6,7 +6,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://47.97.116.169:5000/eureka
+      defaultZone: http://47.97.116.169:7000/eureka
 zuul:
   routes:
     sardine-user: /user/**

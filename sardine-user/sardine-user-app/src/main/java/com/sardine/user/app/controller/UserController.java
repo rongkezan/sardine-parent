@@ -4,6 +4,7 @@ import com.sardine.common.entity.domain.UserDto;
 import com.sardine.common.entity.http.CommonResult;
 import com.sardine.common.exception.SardineRuntimeException;
 import com.sardine.common.util.JwtUtils;
+import com.sardine.user.app.api.UserApi;
 import com.sardine.user.app.entity.vo.UserVo;
 import com.sardine.user.app.properties.JwtProperties;
 import com.sardine.user.app.service.UserService;
@@ -17,9 +18,7 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 /**
@@ -30,13 +29,19 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @Api(tags = "用户管理相关接口")
-public class UserController {
+public class UserController implements UserApi {
 
-    @Resource
-    UserService userService;
+    /* JVM实例中维护的计数器 用于测试负载均衡 */
+    private int counter = 0;
 
-    @Resource
-    JwtProperties jwtProperties;
+    private final UserService userService;
+
+    private final JwtProperties jwtProperties;
+
+    public UserController(UserService userService, JwtProperties jwtProperties) {
+        this.userService = userService;
+        this.jwtProperties = jwtProperties;
+    }
 
     @PostMapping("login")
     @ApiOperation("登录")
@@ -84,34 +89,18 @@ public class UserController {
         return CommonResult.success(userInfo);
     }
 
-    @GetMapping("hello")
-    public String hello(){
-        return "Hello World";
+    @GetMapping("count")
+    public CommonResult<String> count(){
+        return CommonResult.success("success","Count:" + counter++);
     }
 
-    public static void main(String[] args) {
-        ExecutorService pool = new ThreadPoolExecutor(
-                2, 5, 1L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(3),
-                Executors.defaultThreadFactory(), new ThreadPoolExecutor.CallerRunsPolicy());
+    @GetMapping("timeout")
+    public CommonResult<String> timeout(){
         try {
-            for (int i = 0; i < 10; i++) {
-                final int fi = i;
-                pool.execute(() -> {
-                    System.out.println(Thread.currentThread().getName() + "\t" + fi);
-                });
-            }
-        } catch (Exception e) {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
             e.printStackTrace();
-        } finally {
-            pool.shutdown();
         }
-    }
-
-    static class MyThreadFactory implements ThreadFactory{
-
-        @Override
-        public Thread newThread(Runnable r) {
-            return new Thread();
-        }
+        return CommonResult.success();
     }
 }

@@ -1,5 +1,3 @@
-server:
-  port: 5002
 spring:
   application:
     name: sardine-user
@@ -30,7 +28,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:5000/eureka
+      defaultZone: http://127.0.0.1:7000/eureka
   instance:
     ip-address: 127.0.0.1
     prefer-ip-address: true
@@ -47,3 +45,15 @@ ribbon:
   MaxAutoRetries: 0               # 当前服务重试次数
   MaxAutoRetriesNextServer: 0     # 切换服务重试次数
   MaxTotalConnections: 500        # 最大连接数
+
+---
+server:
+  port: 7011
+spring:
+  profiles: user1
+
+---
+server:
+  port: 7012
+spring:
+  profiles: user2

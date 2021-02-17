@@ -11,5 +11,12 @@
 
     <artifactId>sardine-cookbook-api</artifactId>
 
-
+    <dependencies>
+        <!-- Sardine Common -->
+        <dependency>
+            <groupId>com.sardine</groupId>
+            <artifactId>sardine-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 </project>

@@ -31,9 +31,6 @@ import java.util.stream.Collectors;
 @Api(tags = "用户管理相关接口")
 public class UserController implements UserApi {
 
-    /* JVM实例中维护的计数器 用于测试负载均衡 */
-    private int counter = 0;
-
     private final UserService userService;
 
     private final JwtProperties jwtProperties;
@@ -87,20 +84,5 @@ public class UserController implements UserApi {
             return CommonResult.failed(null);
         }
         return CommonResult.success(userInfo);
-    }
-
-    @GetMapping("count")
-    public CommonResult<String> count(){
-        return CommonResult.success("success","Count:" + counter++);
-    }
-
-    @GetMapping("timeout")
-    public CommonResult<String> timeout(){
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return CommonResult.success();
     }
 }

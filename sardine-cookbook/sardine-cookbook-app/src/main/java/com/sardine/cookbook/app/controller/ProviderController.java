@@ -1,27 +1,15 @@
 package com.sardine.cookbook.app.controller;
 
-import com.sardine.common.entity.http.CommonResult;
 import com.sardine.cookbook.app.entity.Cookbook;
 import com.sardine.cookbook.app.entity.Student;
-import com.sardine.user.api.client.UserClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author keith
- */
 @RestController
 @RequestMapping("provider")
 public class ProviderController {
-
-    private final UserClient userClient;
-
-    public ProviderController(UserClient userClient) {
-        this.userClient = userClient;
-    }
 
     @GetMapping("hello")
     public String hello(String name){
@@ -54,17 +42,5 @@ public class ProviderController {
             e.printStackTrace();
         }
         return "Hello World";
-    }
-
-    @GetMapping("feign")
-    public CommonResult<String> userFeign(){
-        CommonResult<String> count = userClient.count();
-        return CommonResult.success(count.getRecord());
-    }
-
-    @GetMapping("timeout")
-    public CommonResult<String> userTimeout(){
-        CommonResult<String> count = userClient.timeout();
-        return CommonResult.success(count.getRecord());
     }
 }

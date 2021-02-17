@@ -1,4 +1,4 @@
-package com.sardine.user.app.controller;
+package com.sardine.cookbook.app.controller;
 
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;

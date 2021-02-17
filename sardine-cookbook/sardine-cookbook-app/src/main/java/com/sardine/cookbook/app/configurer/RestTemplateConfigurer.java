@@ -1,8 +1,8 @@
-package com.sardine.user.app.configurer;
+package com.sardine.cookbook.app.configurer;
 
 import com.netflix.loadbalancer.IRule;
 import com.netflix.loadbalancer.RetryRule;
-import com.sardine.user.app.controller.LoggingClientHttpRequestInterceptor;
+import com.sardine.cookbook.app.controller.LoggingClientHttpRequestInterceptor;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

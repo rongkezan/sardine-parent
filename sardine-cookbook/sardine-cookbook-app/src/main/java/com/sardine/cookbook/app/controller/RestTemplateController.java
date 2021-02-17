@@ -1,7 +1,9 @@
-package com.sardine.user.app.controller;
+package com.sardine.cookbook.app.controller;
 
-import com.sardine.user.app.entity.domain.Cookbook;
-import com.sardine.user.app.entity.domain.Student;
+import com.sardine.common.entity.http.CommonResult;
+import com.sardine.cookbook.app.entity.Cookbook;
+import com.sardine.cookbook.app.entity.Student;
+import com.sardine.cookbook.app.service.RestTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.ResponseEntity;
@@ -13,17 +15,23 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 /**
- * @author keith
+ * Test RestTemplate
  */
 @RestController
-@RequestMapping("consumer")
-public class ConsumerController {
+@RequestMapping("rest_template")
+public class RestTemplateController {
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
-    @Autowired
-    private DiscoveryClient discoveryClient;
+    private final DiscoveryClient discoveryClient;
+
+    private final RestTemplateService restTemplateService;
+
+    public RestTemplateController(RestTemplate restTemplate, DiscoveryClient discoveryClient, RestTemplateService restTemplateService) {
+        this.restTemplate = restTemplate;
+        this.discoveryClient = discoveryClient;
+        this.restTemplateService = restTemplateService;
+    }
 
     @GetMapping("get")
     public void hello(String name){
@@ -51,5 +59,10 @@ public class ConsumerController {
         String url = "http://sardine-cookbook/provider/balance";
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         System.out.println(response.getBody());
+    }
+
+    @GetMapping("fallback")
+    public CommonResult<String> fallback(){
+        return CommonResult.success("成功", restTemplateService.alive());
     }
 }

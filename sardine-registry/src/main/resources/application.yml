@@ -11,7 +11,19 @@ eureka:
 logging:
   level:
     com.netflix: warn
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+spring:
+  boot:
+    admin:
+      client:
+        url: http://127.0.0.1:8080
 ---
 server:
   port: 7000

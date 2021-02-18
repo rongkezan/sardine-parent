@@ -25,6 +25,10 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/test
+  boot:
+    admin:
+      client:
+        url: http://127.0.0.1:8080
 eureka:
   client:
     service-url:
@@ -44,7 +48,15 @@ ribbon:
   ReadTimeout: 1000               # ribbon读取超时时长
   MaxAutoRetries: 0               # 当前服务重试次数
   MaxAutoRetriesNextServer: 0     # 切换服务重试次数
-  MaxTotalConnections: 500        # 最大连接数
+  MaxTotalConnections: 500        # 最大连接数endpoints.web.exposure.include=*
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
 
 ---
 server:

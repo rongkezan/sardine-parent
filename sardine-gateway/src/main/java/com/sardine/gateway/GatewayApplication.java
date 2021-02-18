@@ -12,7 +12,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 @EnableZuulProxy
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = "com.sardine.**.api")
+@EnableFeignClients
 @SpringBootApplication
 public class GatewayApplication {
     public static void main(String[] args) {

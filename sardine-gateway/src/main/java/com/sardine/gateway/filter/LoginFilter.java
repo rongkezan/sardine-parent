@@ -2,19 +2,16 @@ package com.sardine.gateway.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import com.netflix.zuul.exception.ZuulException;
 import com.sardine.common.constants.MdcConstants;
 import com.sardine.common.entity.domain.UserDto;
+import com.sardine.gateway.client.UserApi;
 import com.sardine.gateway.prop.AuthProperties;
-import com.sardine.user.api.client.UserClient;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpStatus;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -25,11 +22,11 @@ public class LoginFilter extends ZuulFilter {
 
     private final AuthProperties authProperties;
 
-    private final UserClient userClient;
+    private final UserApi userApi;
 
-    public LoginFilter(AuthProperties authProperties, UserClient userClient) {
+    public LoginFilter(AuthProperties authProperties, UserApi userApi) {
         this.authProperties = authProperties;
-        this.userClient = userClient;
+        this.userApi = userApi;
     }
 
     /**
@@ -73,7 +70,7 @@ public class LoginFilter extends ZuulFilter {
         String token = request.getHeader(authProperties.getTokenName());
         if (StringUtils.isBlank(token))
             return noAuthorization(context);
-        UserDto user = userClient.identify(token).getRecord();
+        UserDto user = userApi.identify(token).getRecord();
         if (user == null)
             return noAuthorization(context);
         MDC.put(MdcConstants.MDC_KEY_USERNAME, user.getUsername());

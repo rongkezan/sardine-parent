@@ -11,6 +11,7 @@
         <module>sardine-sms</module>
         <module>sardine-file</module>
         <module>sardine-config-center</module>
+        <module>sardine-admin</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

@@ -3,30 +3,19 @@ server:
 spring:
   application:
     name: sardine-gateway
-eureka:
-  client:
-    service-url:
-      defaultZone: http://127.0.0.1:7000/eureka
-zuul:
-  routes:
-    sardine-user: /user/**
-    sardine-cookbook: /cookbook/**
-    sardine-file: /file/**
-  prefix: /api
-  add-host-header: true # 携带域名信息
-  sensitive-headers:    # 忽略头信息
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 5000 # 熔断超时时长
-ribbon:
-  ConnectTimeout: 10000           # ribbon连接超时时长
-  ReadTimeout: 10000              # ribbon读取超时时长
-  MaxAutoRetries: 0               # 当前服务重试次数
-  MaxAutoRetriesNextServer: 0     # 切换服务重试次数
+  cloud:
+    gateway:
+      routes:
+        - id: my-route
+          uri: http://localhost:7012
+          predicates:
+            - Path=/gateway/**      # 将后缀是此路径的转发到uri
+          filters:
+            - StripPrefix=1         # 去掉1个前缀
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://127.0.0.1:7000/eureka
 sardine:
   gateway:
     auth:

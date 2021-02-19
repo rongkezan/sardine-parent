@@ -12,6 +12,8 @@
         <module>sardine-file</module>
         <module>sardine-config-center</module>
         <module>sardine-admin</module>
+        <module>sardine-demo</module>
+        <module>sardine-zuul</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

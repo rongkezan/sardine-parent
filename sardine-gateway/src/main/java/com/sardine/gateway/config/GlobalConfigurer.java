@@ -1,23 +1,26 @@
 package com.sardine.gateway.config;
 
 import com.sardine.gateway.prop.AuthProperties;
+import org.springframework.cloud.gateway.route.RouteLocator;
+import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import javax.annotation.Resource;
-
 /**
- * 全局跨域配置
+ * 全局配置
  * @author keith
  */
 @Configuration
-public class GlobalCorsConfigurer {
+public class GlobalConfigurer {
 
-    @Resource
-    AuthProperties authProperties;
+    private final AuthProperties authProperties;
+
+    public GlobalConfigurer(AuthProperties authProperties) {
+        this.authProperties = authProperties;
+    }
 
     @Bean
     public CorsFilter corsFilter(){

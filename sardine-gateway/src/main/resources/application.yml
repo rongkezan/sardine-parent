@@ -5,17 +5,28 @@ spring:
     name: sardine-gateway
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: true
       routes:
-        - id: my-route
-          uri: http://localhost:7012
-          predicates:
-            - Path=/gateway/**      # 将后缀是此路径的转发到uri
-          filters:
-            - StripPrefix=1         # 去掉1个前缀
-#eureka:
-#  client:
-#    service-url:
-#      defaultZone: http://127.0.0.1:7000/eureka
+      - id: sardine-user
+        predicates:
+        - Path=/user/**
+        uri: lb://SARDINE-USER
+        filters:
+        - StripPrefix=1
+        - name: RequestRateLimiter
+          args:
+            rate-limiter: '#{@defaultRateLimiter}'    # 限流的实现类，Spring的EL表达式，拿到这个Bean
+            key-resolver: '#{@userKeyResolver}'       # 需要限流的规则
+            default-rate-limiter.premitPerSecond: 0.5 # 每秒发放令牌个数
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:7000/eureka
+SARDINE-USER:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.sardine.gateway.config.MyRule
 sardine:
   gateway:
     auth:

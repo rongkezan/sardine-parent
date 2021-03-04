@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: mqTest1
+rocketMq:
+  consumer:
+    groupName: ${spring.application.name}
+    nameSrvAddr: 192.168.25.101:9876
+    topic: testTopic
+  producer:
+    groupName: ${spring.application.name}
+    nameSrvAddr: 192.168.25.101:9876

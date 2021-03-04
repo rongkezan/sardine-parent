@@ -15,6 +15,7 @@ import com.sardine.user.app.properties.JwtProperties;
 import com.sardine.user.app.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 

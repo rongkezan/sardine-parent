@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: nacos-demo
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: 2cd03b3d-4c75-4ceb-ac89-2673fc2032d9
+        file-extension: yml
+        group: DEV_GROUP
+        extension-configs:
+          - data-id: nacos-example1.yml
+            group: DEV_GROUP
+            refresh: true
+          - data-id: nacos-example2.yml
+            group: DEV_GROUP
+            refresh: true

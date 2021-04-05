@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RefreshScope
 public class ConfigController {
 
-    @Value("${common.name}")
+//    @Value("${common.name}")
     private String name;
 
-    @Value("${common.age}")
+//    @Value("${common.age}")
     private Integer age;
 
     @GetMapping("get")

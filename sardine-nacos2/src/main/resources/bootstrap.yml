@@ -1,0 +1,14 @@
+server:
+  port: 8002
+spring:
+  application:
+    name: nacos-demo2
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+dubbo:
+  application:
+    name: nacos-demo2
+  registry:
+    address: nacos://127.0.0.1:2181

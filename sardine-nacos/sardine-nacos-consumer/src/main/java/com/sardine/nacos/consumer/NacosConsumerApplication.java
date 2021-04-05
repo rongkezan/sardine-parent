@@ -1,17 +1,18 @@
-package com.sardine.nacos;
+package com.sardine.nacos.consumer;
 
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
+ * Nacos Application
+ *
  * @author keith
  */
 @SpringBootApplication
-@EnableDubbo(scanBasePackages = "com.sardine.nacos")
-public class Nacos2Application {
+@EnableDubbo
+public class NacosConsumerApplication {
     public static void main(String[] args) {
-        SpringApplication.run(Nacos2Application.class, args);
+        SpringApplication.run(NacosConsumerApplication.class, args);
     }
 }

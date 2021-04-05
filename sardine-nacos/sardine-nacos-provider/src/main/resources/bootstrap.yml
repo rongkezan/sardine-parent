@@ -1,0 +1,18 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: sardine-nacos-provider
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yml
+dubbo:
+  protocol:
+    name: dubbo
+    port: 20881
+  registry:
+    address: nacos://127.0.0.1:8848
+  application:
+    name: ${spring.application.name}

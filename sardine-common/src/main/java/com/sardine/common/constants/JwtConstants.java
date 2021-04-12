@@ -1,5 +1,8 @@
 package com.sardine.common.constants;
 
+/**
+ * @author keith
+ */
 public abstract class JwtConstants {
 
     public static final String JWT_KEY_ID = "id";

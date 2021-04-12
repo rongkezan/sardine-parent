@@ -9,6 +9,8 @@ import java.util.List;
 
 /**
  * Common return value of page
+ *
+ * @author keith
  */
 @Data
 @NoArgsConstructor
@@ -18,22 +20,22 @@ public class PageResult<T> implements Serializable {
 
     private static final long serialVersionUID = -8940366960899264820L;
 
-    /* Status code */
+    /** Status code */
     private int code;
 
-    /* Message */
+    /** Message */
     private String msg;
 
-    /* Total record count */
+    /** Total record count */
     private int total;
 
-    /* Total record page */
+    /** Total record page */
     private int totalPage;
 
-    /* This id can help you track logs */
+    /** This id can help you track logs */
     private String traceId;
 
-    /* Real data */
+    /** Real data */
     private List<T> records;
 
     public static <T> PageResult<T> success(String msg, int total, int totalPage, String traceId, List<T> records){

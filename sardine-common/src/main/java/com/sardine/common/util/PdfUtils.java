@@ -22,10 +22,14 @@ import java.util.List;
  */
 public class PdfUtils {
 
-    /* 生成 PDF 最大大小为 4M */
+    /**
+     * 生成 PDF 最大大小为 4M
+     */
     private static final int PDF_MAX_SIZE = 4 * 1024 * 1024;
 
-    /* PDF 默认 DPI 为 72 */
+    /**
+     * PDF 默认 DPI 为 72
+     */
     private static final int PDF_DPI = 72;
 
     /**
@@ -33,15 +37,15 @@ public class PdfUtils {
      * 将Pdf转为图片压缩，压缩后再将图片转为Pdf
      *
      * @param bytes 未压缩的Pdf字节流
-     * @return  压缩后的Pdf字节流
+     * @return 压缩后的Pdf字节流
      */
-    public static byte[] compress(byte[] bytes){
+    public static byte[] compress(byte[] bytes) {
         PDDocument doc = new PDDocument();
         ByteArrayOutputStream bos = new ByteArrayOutputStream(bytes.length);
         bos.write(bytes, 0, bytes.length);
         try {
             doc.save(bos);
-            if (bytes.length > PDF_MAX_SIZE){
+            if (bytes.length > PDF_MAX_SIZE) {
                 int dpi = (PDF_DPI * PDF_MAX_SIZE) / bytes.length;
                 // 加载Pdf
                 PDDocument document = PDDocument.load(bytes);
@@ -61,7 +65,7 @@ public class PdfUtils {
         List<BufferedImage> images = new ArrayList<>();
         PDFRenderer renderer = new PDFRenderer(document);
         int pages = document.getNumberOfPages();
-        for (int i = 0; i < pages; i++){
+        for (int i = 0; i < pages; i++) {
             BufferedImage image = renderer.renderImageWithDPI(1, dpi);
             images.add(image);
         }
@@ -69,7 +73,7 @@ public class PdfUtils {
     }
 
     private static byte[] imagesToPdf(List<BufferedImage> images) throws IOException {
-        if (CollectionUtils.isEmpty(images)){
+        if (CollectionUtils.isEmpty(images)) {
             return null;
         }
         ByteArrayOutputStream bos = null;
@@ -79,17 +83,18 @@ public class PdfUtils {
             for (BufferedImage image : images) {
                 PDPage pdPage = new PDPage(new PDRectangle(image.getWidth(), image.getHeight()));
                 document.addPage(pdPage);
-                PDImageXObject pdImageXObject = LosslessFactory.createFromImage(document, image);
+                PDImageXObject imageObject = LosslessFactory.createFromImage(document, image);
                 // 将文件写入新的Pdf中
                 PDPageContentStream contentStream = new PDPageContentStream(document, pdPage);
-                contentStream.drawImage(pdImageXObject, 0, 0, image.getWidth(), image.getHeight());
+                contentStream.drawImage(imageObject, 0, 0, image.getWidth(), image.getHeight());
                 contentStream.close();
             }
             document.save(bos);
             document.close();
         } finally {
-            if (bos != null)
+            if (bos != null) {
                 bos.close();
+            }
         }
         return bos.toByteArray();
     }

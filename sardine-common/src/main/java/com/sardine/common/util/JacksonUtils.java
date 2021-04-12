@@ -1,48 +1,106 @@
 package com.sardine.common.util;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import com.sardine.common.exception.SardineRuntimeException;
+import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
  * Jackson工具类
+ *
+ * @author keith
  */
 public class JacksonUtils {
 
-    private static final ObjectMapper mapper = new ObjectMapper();
+    private JacksonUtils() {
+
+    }
+
+    private static final String STANDARD_PATTERN = "yyyy-MM-dd HH:mm:ss";
+
+    private static final String DATE_PATTERN = "yyyy-MM-dd";
+
+    private static final String TIME_PATTERN = "HH:mm:ss";
 
     /**
-     * Json -> Entity
+     * Config ObjectMapper
      */
-    public static <T> T toEntity(String json, Class<T> clazz) {
+    private static ObjectMapper objectMapper = new ObjectMapper();
+
+    static {
+        // Convert LocalDateTime, LocalDate, LocalTime to specified pattern.
+        JavaTimeModule javaTimeModule = new JavaTimeModule();
+        javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(STANDARD_PATTERN)));
+        javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(STANDARD_PATTERN)));
+        javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern(DATE_PATTERN)));
+        javaTimeModule.addDeserializer(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ofPattern(DATE_PATTERN)));
+        javaTimeModule.addSerializer(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern(TIME_PATTERN)));
+        javaTimeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern(TIME_PATTERN)));
+
+        objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        objectMapper.registerModule(javaTimeModule);
+    }
+
+    /**
+     * convert json string to object
+     *
+     * @param json  json string
+     * @param clazz object class
+     * @return object
+     */
+    public static <T> T toBean(String json, Class<T> clazz) {
         try {
-            return mapper.readValue(json, clazz);
-        } catch (JsonProcessingException e) {
-            throw new SardineRuntimeException("Json convert to entity exception", e);
+            return objectMapper.readValue(json, clazz);
+        } catch (Exception e) {
+            throw new SardineRuntimeException("Jackson to bean exception", e);
         }
     }
 
     /**
-     * Json -> List
+     * Convert json string to generics object.
+     *
+     * @param json      json string
+     * @param reference generics object reference
+     *                  example: new TypeReference<Map<String, Object>>() {}
+     *                  normally you don't need implement this interface's method.
+     * @return          object
      */
-    public static <T> List<T> toList(String json, Class<T> clazz) {
+    public static <T> T toBean(String json, TypeReference<T> reference) {
         try {
-            return mapper.readValue(json, mapper.getTypeFactory().constructParametricType(List.class, clazz));
-        } catch (JsonProcessingException e) {
-            throw new SardineRuntimeException("Json convert to entity exception", e);
+            return objectMapper.readValue(json, reference);
+        } catch (Exception e) {
+            throw new SardineRuntimeException("Jackson to bean exception", e);
         }
     }
 
     /**
-     * T -> Json
+     * convert object to json string
+     *
+     * @param object object
+     * @return json string
      */
-    public static <T> String toJson(T t) {
+    public static String toJson(Object object) {
         try {
-            return mapper.writeValueAsString(t);
-        } catch (JsonProcessingException e) {
-            throw new SardineRuntimeException("Object convert to json exception", e);
+            return objectMapper.writeValueAsString(object);
+        } catch (Exception e) {
+            throw new SardineRuntimeException("Jackson to bean exception", e);
         }
     }
 }

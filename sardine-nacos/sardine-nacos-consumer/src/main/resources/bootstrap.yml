@@ -8,11 +8,13 @@ spring:
       config:
         server-addr: 127.0.0.1:8848
         file-extension: yml
+        username: nacos
+        password: nacos
 dubbo:
   protocol:
     name: dubbo
     port: 20882
-  registry:
-    address: nacos://127.0.0.1:8848
   application:
     name: ${spring.application.name}
+  consumer:
+    timeout: 5000

@@ -8,6 +8,8 @@ import java.io.Serializable;
 
 /**
  * Common return value of single record
+ *
+ * @author keith
  */
 @Data
 @Accessors(chain = true)
@@ -17,16 +19,16 @@ public class CommonResult<T> implements Serializable {
 
     private static final long serialVersionUID = -8940366960899264819L;
 
-    /* Status code */
+    /** Status code */
     private int code;
 
-    /* Message */
+    /** Message */
     private String msg;
 
-    /* This id can help you track logs */
+    /** This id can help you track logs */
     private String traceId;
 
-    /* Real data */
+    /** Real data */
     private T record;
 
     public CommonResult(int code, String msg, T record) {

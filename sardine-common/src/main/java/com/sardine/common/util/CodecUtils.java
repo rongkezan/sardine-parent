@@ -4,10 +4,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * 加密解密工具类
+ *
+ * @author keith
  */
 public class CodecUtils {
 
-    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private static final BCryptPasswordEncoder ENCODER = new BCryptPasswordEncoder();
 
     /**
      * 密码加密 (以用户名作为盐加密)
@@ -17,7 +19,7 @@ public class CodecUtils {
      * @return  加密后的密码
      */
     public static String passwordEncode(String username, String password) {
-        return encoder.encode(username + password);
+        return ENCODER.encode(username + password);
     }
 
     /**
@@ -28,6 +30,6 @@ public class CodecUtils {
      * @return  true比对成功，false比对失败
      */
     public static boolean passwordConfirm(String rawPassword, String encodePassword) {
-        return encoder.matches(rawPassword, encodePassword);
+        return ENCODER.matches(rawPassword, encodePassword);
     }
 }

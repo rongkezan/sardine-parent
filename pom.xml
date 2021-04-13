@@ -17,6 +17,7 @@
         <module>sardine-sharding</module>
         <module>sardine-rocketmq</module>
         <module>sardine-nacos</module>
+        <module>sardine-market</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

@@ -18,6 +18,9 @@
         <module>sardine-rocketmq</module>
         <module>sardine-nacos</module>
         <module>sardine-market</module>
+        <module>../huobi_Java-master</module>
+        <module>sardine-aes</module>
+        <module>sardine-redisson</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

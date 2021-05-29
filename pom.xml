@@ -13,7 +13,7 @@
         <module>sardine-zuul</module>
         <module>sardine-rocketmq</module>
         <module>sardine-nacos</module>
-        <module>sardine-redisson</module>
+        <module>sardine-redis</module>
         <module>sardine-dubbo</module>
         <module>sardine-websocket</module>
     </modules>

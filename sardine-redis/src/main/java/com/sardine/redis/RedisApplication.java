@@ -1,14 +1,16 @@
-package com.sardine.redisson;
+package com.sardine.redis;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author keith
  */
+@Configuration
 @SpringBootApplication
-public class SardineRedissonApplication {
+public class RedisApplication {
     public static void main(String[] args) {
-        SpringApplication.run(SardineRedissonApplication.class, args);
+        SpringApplication.run(RedisApplication.class, args);
     }
 }

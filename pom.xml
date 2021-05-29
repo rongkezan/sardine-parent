@@ -15,7 +15,6 @@
         <module>sardine-nacos</module>
         <module>sardine-redisson</module>
         <module>sardine-dubbo</module>
-        <module>../huobi_Java-master</module>
         <module>sardine-websocket</module>
     </modules>
     <parent>

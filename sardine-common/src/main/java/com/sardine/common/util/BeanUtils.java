@@ -27,6 +27,17 @@ public class BeanUtils {
      * Copy bean object
      *
      * @param source   object you want copy
+     * @param target   target object
+     */
+    public static <T> T copyProperties(Object source, T target) {
+        getBeanCopier(source.getClass(), target.getClass()).copy(source, target, null);
+        return target;
+    }
+
+    /**
+     * Copy bean object
+     *
+     * @param source   object you want copy
      * @param supplier target object supplier (eg: User::new)
      */
     public static <T> T copyProperties(Object source, Supplier<T> supplier) {

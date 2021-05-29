@@ -7,20 +7,16 @@
         <module>sardine-gateway</module>
         <module>sardine-common</module>
         <module>sardine-user</module>
-        <module>sardine-cookbook</module>
         <module>sardine-sms</module>
         <module>sardine-file</module>
-        <module>sardine-config-center</module>
         <module>sardine-admin</module>
-        <module>sardine-demo</module>
         <module>sardine-zuul</module>
-        <module>sardine-sharding</module>
         <module>sardine-rocketmq</module>
         <module>sardine-nacos</module>
-        <module>sardine-market</module>
-        <module>../huobi_Java-master</module>
-        <module>sardine-aes</module>
         <module>sardine-redisson</module>
+        <module>sardine-dubbo</module>
+        <module>../huobi_Java-master</module>
+        <module>sardine-websocket</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

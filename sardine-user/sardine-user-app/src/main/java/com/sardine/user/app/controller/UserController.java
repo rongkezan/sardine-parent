@@ -1,7 +1,7 @@
 package com.sardine.user.app.controller;
 
 import com.sardine.common.entity.domain.UserDto;
-import com.sardine.common.entity.http.CommonResult;
+import com.sardine.common.entity.http.Result;
 import com.sardine.common.exception.SardineRuntimeException;
 import com.sardine.common.util.JwtUtils;
 import com.sardine.user.app.api.UserApi;
@@ -42,33 +42,33 @@ public class UserController implements UserApi {
 
     @PostMapping("login")
     @ApiOperation("登录")
-    public CommonResult<String> login(@Valid @RequestBody UserVo userVo, BindingResult result) {
+    public Result<String> login(@Valid @RequestBody UserVo userVo, BindingResult result) {
         if (result.hasFieldErrors())
             throw new SardineRuntimeException(result.getFieldErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .collect(Collectors.joining("|")));
         String token = userService.identify(userVo.getUsername(), userVo.getPassword());
         if (StringUtils.isBlank(token))
-            return CommonResult.failed("身份未认证", "");
-        return CommonResult.success("登录成功", token);
+            return Result.failed("身份未认证", "");
+        return Result.success("登录成功", token);
     }
 
     @PostMapping("signup")
     @ApiOperation("注册")
-    public CommonResult<Boolean> signup(@Valid @RequestBody UserVo userVo, BindingResult result){
+    public Result<Boolean> signup(@Valid @RequestBody UserVo userVo, BindingResult result){
         if (result.hasFieldErrors())
             throw new SardineRuntimeException(result.getFieldErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .collect(Collectors.joining("|")));
         userService.insertOne(userVo);
-        return CommonResult.success("用户注册成功");
+        return Result.success("用户注册成功");
     }
 
     @PostMapping("code")
     @ApiOperation("发送手机验证码")
-    public CommonResult<Void> code(String phone){
+    public Result<Void> code(String phone){
         userService.sendCode(phone);
-        return CommonResult.success();
+        return Result.success();
     }
 
     @PostMapping("identify")
@@ -76,13 +76,13 @@ public class UserController implements UserApi {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "token", value = "token令牌")
     })
-    public CommonResult<UserDto> identify(@RequestParam String token) {
+    public Result<UserDto> identify(@RequestParam String token) {
         UserDto userInfo = null;
         try {
             userInfo = JwtUtils.getInfoFromToken(token, jwtProperties.getPublicKey());
         } catch (Exception e) {
-            return CommonResult.failed(null);
+            return Result.failed(null);
         }
-        return CommonResult.success(userInfo);
+        return Result.success(userInfo);
     }
 }

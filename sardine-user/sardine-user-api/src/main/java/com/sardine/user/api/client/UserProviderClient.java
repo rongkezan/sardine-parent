@@ -1,6 +1,6 @@
 package com.sardine.user.api.client;
 
-import com.sardine.common.entity.http.CommonResult;
+import com.sardine.common.entity.http.Result;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface UserProviderClient {
 
     @GetMapping("count")
-    CommonResult<String> count();
+    Result<String> count();
 
     @GetMapping("timeout")
-    CommonResult<String> timeout();
+    Result<String> timeout();
 }

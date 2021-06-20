@@ -1,6 +1,6 @@
 package com.sardine.file.controller;
 
-import com.sardine.common.entity.http.CommonResult;
+import com.sardine.common.entity.http.Result;
 import com.sardine.common.exception.SardineRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,9 +27,9 @@ public class TestController {
     String serverPort;
 
     @PostMapping("upload")
-    public CommonResult<Void> upload(@RequestParam("file") MultipartFile file) {
+    public Result<Void> upload(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty())
-            return CommonResult.failed("File is empty, please choose a file");
+            return Result.failed("File is empty, please choose a file");
         String filename = file.getOriginalFilename();
         String filepath = "D:/";
         File dest = new File(filepath + filename);
@@ -38,7 +38,7 @@ public class TestController {
         } catch (IOException e) {
             throw new SardineRuntimeException("upload failed");
         }
-        return CommonResult.success("upload success");
+        return Result.success("upload success");
     }
 
     @PostMapping("/download")
@@ -66,7 +66,7 @@ public class TestController {
     }
 
     @GetMapping("hello")
-    public CommonResult<String> hello(){
-        return CommonResult.success("成功",serverPort);
+    public Result<String> hello(){
+        return Result.success("成功",serverPort);
     }
 }

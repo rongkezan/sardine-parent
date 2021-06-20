@@ -1,3 +1,5 @@
+server:
+  port: 12345
 dubbo:
   application:
     name: provider-service
@@ -7,5 +9,3 @@ dubbo:
   protocol:
     name: dubbo
     port: 20991
-server:
-  port: 12345

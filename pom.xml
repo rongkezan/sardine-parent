@@ -16,6 +16,7 @@
         <module>sardine-redis</module>
         <module>sardine-dubbo</module>
         <module>sardine-websocket</module>
+        <module>sardine-zk</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

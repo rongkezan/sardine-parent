@@ -1,11 +1,10 @@
+server:
+  port: 12580
 spring:
   application:
-    name: mqTest1
+    name: mq-test
 rocketMq:
-  consumer:
-    groupName: ${spring.application.name}
-    nameSrvAddr: 192.168.25.101:9876
-    topic: testTopic
+  name-server: 127.0.0.1:9876
   producer:
-    groupName: ${spring.application.name}
-    nameSrvAddr: 192.168.25.101:9876
+    group: ${spring.application.name}
+

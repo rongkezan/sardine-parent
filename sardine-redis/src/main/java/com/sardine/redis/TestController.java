@@ -1,7 +1,11 @@
 package com.sardine.redis;
 
+import org.redisson.api.RedissonClient;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * @author keith
@@ -9,29 +13,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-    /** redisson bucket get operation */
-    @GetMapping("redisson/bucket/get")
-    public String getBucket(){
-        return RedisFactory.redisson().getBucket("bucket.a").get().toString();
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
+
+    @Resource
+    private RedissonClient redissonClient;
+
+    @GetMapping("get")
+    public Object get(){
+        return redisTemplate.opsForValue().get("a");
     }
 
-    /** redisson bucket set operation */
-    @GetMapping("redisson/bucket/set")
-    public String setBucket(){
-        RedisFactory.redisson().getBucket("bucket.a").set(new Cat());
+    @GetMapping("set")
+    public String set(){
+        redisTemplate.opsForValue().set("a", new Cat());
         return "success";
     }
 
-    /** redisTemplate string get operation */
-    @GetMapping("redisTemplate/string/get")
-    public String getString(){
-        return RedisFactory.stringRedisTemplate().opsForValue().get("template");
+    @GetMapping("get1")
+    public Cat get1(){
+        return redissonClient.<Cat>getBucket("cat").get();
     }
 
-    /** redisTemplate string set operation */
-    @GetMapping("redisTemplate/string/set")
-    public String setString(){
-        RedisFactory.stringRedisTemplate().opsForValue().set("template", "aaa");
+    @GetMapping("set1")
+    public String set1(){
+        redissonClient.<Cat>getBucket("cat").set(new Cat());
         return "success";
     }
 }

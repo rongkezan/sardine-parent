@@ -2,7 +2,8 @@ package com.sardine.user.app.controller;
 
 import com.sardine.common.entity.domain.UserDto;
 import com.sardine.common.entity.http.Result;
-import com.sardine.common.exception.SardineRuntimeException;
+import com.sardine.common.entity.http.Results;
+import com.sardine.common.exception.BusinessException;
 import com.sardine.common.util.JwtUtils;
 import com.sardine.user.app.api.UserApi;
 import com.sardine.user.app.entity.vo.UserVo;
@@ -44,31 +45,31 @@ public class UserController implements UserApi {
     @ApiOperation("登录")
     public Result<String> login(@Valid @RequestBody UserVo userVo, BindingResult result) {
         if (result.hasFieldErrors())
-            throw new SardineRuntimeException(result.getFieldErrors().stream()
+            throw BusinessException.of(result.getFieldErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .collect(Collectors.joining("|")));
         String token = userService.identify(userVo.getUsername(), userVo.getPassword());
         if (StringUtils.isBlank(token))
-            return Result.failed("身份未认证", "");
-        return Result.success("登录成功", token);
+            return Results.failed("身份未认证", "");
+        return Results.success("登录成功", token);
     }
 
     @PostMapping("signup")
     @ApiOperation("注册")
     public Result<Boolean> signup(@Valid @RequestBody UserVo userVo, BindingResult result){
         if (result.hasFieldErrors())
-            throw new SardineRuntimeException(result.getFieldErrors().stream()
+            throw BusinessException.of(result.getFieldErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .collect(Collectors.joining("|")));
         userService.insertOne(userVo);
-        return Result.success("用户注册成功");
+        return Results.success("用户注册成功");
     }
 
     @PostMapping("code")
     @ApiOperation("发送手机验证码")
     public Result<Void> code(String phone){
         userService.sendCode(phone);
-        return Result.success();
+        return Results.success();
     }
 
     @PostMapping("identify")
@@ -81,8 +82,8 @@ public class UserController implements UserApi {
         try {
             userInfo = JwtUtils.getInfoFromToken(token, jwtProperties.getPublicKey());
         } catch (Exception e) {
-            return Result.failed(null);
+            return Results.failed(null);
         }
-        return Result.success(userInfo);
+        return Results.success(userInfo);
     }
 }

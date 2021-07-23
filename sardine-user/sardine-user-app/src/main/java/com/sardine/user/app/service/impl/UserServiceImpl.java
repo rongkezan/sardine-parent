@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.sardine.common.constants.MqConstants;
 import com.sardine.common.constants.RedisConstants;
 import com.sardine.common.entity.domain.UserDto;
-import com.sardine.common.exception.SardineRuntimeException;
+import com.sardine.common.exception.BusinessException;
 import com.sardine.common.util.BeanUtils;
 import com.sardine.common.util.CodecUtils;
 import com.sardine.common.util.JwtUtils;
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
     public User selectOne(String username, String password) {
         User record = userMapper.selectOne(Wrappers.<User>lambdaQuery().eq(User::getUsername, username));
         if (record == null || !CodecUtils.passwordConfirm(username + password, record.getPassword())) {
-            throw new SardineRuntimeException("登录失败，用户名或密码错误");
+            throw BusinessException.of("登录失败，用户名或密码错误");
         }
         return record;
     }
@@ -58,11 +58,11 @@ public class UserServiceImpl implements UserService {
     public void insertOne(UserVo userVo) {
         String cacheCode = stringRedisTemplate.opsForValue().get(RedisConstants.USER_PHONE_CODE_VALUE + userVo.getUsername());
         if (!StringUtils.equals(cacheCode, userVo.getCode())) {
-            throw new SardineRuntimeException("手机验证码不正确");
+            throw BusinessException.of("手机验证码不正确");
         }
         User record = selectOne(userVo.getUsername());
         if (record != null) {
-            throw new SardineRuntimeException("该用户名已存在");
+            throw BusinessException.of("该用户名已存在");
         }
         User user = BeanUtils.copyProperties(userVo, User::new);
         String encodePassword = CodecUtils.passwordEncode(userVo.getUsername().trim(), userVo.getPassword().trim());

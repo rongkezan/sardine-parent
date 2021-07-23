@@ -1,0 +1,33 @@
+server:
+  port: 14100
+spring:
+  application:
+    name: sardine-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: sardine-server1
+          predicates:
+            - Path=/server1/**
+          uri: http://127.0.0.1:14101
+          filters:
+            - StripPrefix=1
+#            - name: RequestRateLimiter
+#              args:
+#                rate-limiter: '#{@defaultRateLimiter}'    # 限流的实现类，Spring的EL表达式，拿到这个Bean
+#                key-resolver: '#{@userKeyResolver}'       # 需要限流的规则
+#                default-rate-limiter.premitPerSecond: 0.5 # 每秒发放令牌个数
+        - id: sardine-server2
+          predicates:
+            - Path=/server2/**
+          uri: http://127.0.0.1:14102
+          filters:
+            - StripPrefix=1
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    timeout: 3000

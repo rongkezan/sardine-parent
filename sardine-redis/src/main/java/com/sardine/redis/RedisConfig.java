@@ -3,13 +3,16 @@ package com.sardine.redis;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sardine.utils.SpringContextUtils;
+import com.sardine.utils.exception.SystemException;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.Config;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
@@ -21,13 +24,8 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * @author keith
  */
 @Configuration
+@DependsOn("springContextUtils")
 public class RedisConfig {
-
-    @Value("${spring.redis.host}")
-    private String host;
-
-    @Value("${spring.redis.port}")
-    private String port;
 
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
@@ -47,7 +45,11 @@ public class RedisConfig {
     @Bean
     public RedissonClient redissonClient(){
         Config config = new Config();
-        config.useSingleServer().setAddress("redis://" + host + ":" + port);
+        RedisProperties redisProperties = SpringContextUtils.getBean(RedisProperties.class);
+        if (redisProperties == null) {
+            throw SystemException.of("Init redis properties failed.");
+        }
+        config.useSingleServer().setAddress("redis://" + redisProperties.getHost() + ":" + redisProperties.getPort());
         config.setCodec(new JsonJacksonCodec());
         return Redisson.create(config);
     }

@@ -36,10 +36,10 @@ public class JwtProperties {
         File pubPath = new File(pubKeyPath);
         File priPath = new File(priKeyPath);
         if(!pubPath.exists() || !priPath.exists()){
-            RsaUtils.generateKey(pubKeyPath, priKeyPath, secret);
+            RsaUtils.generateKey(secret);
         }
         // 存在则读取公钥和私钥
-        this.publicKey = RsaUtils.getPublicKey(pubKeyPath);
-        this.privateKey = RsaUtils.getPrivateKey(priKeyPath);
+//        this.publicKey = RsaUtils.getPublicKey(pubKeyPath);
+//        this.privateKey = RsaUtils.getPrivateKey(priKeyPath);
     }
 }

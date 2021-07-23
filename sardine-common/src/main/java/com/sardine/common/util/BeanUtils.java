@@ -47,6 +47,22 @@ public class BeanUtils {
     }
 
     /**
+     * Copy bean object
+     *
+     * @param source   object you want copy
+     * @param supplier target object supplier (eg: User::new)
+     * @param consumer additional action
+     */
+    public static <S, T> T copyProperties(S source, Supplier<T> supplier, BiConsumer<S, T> consumer) {
+        T t = supplier.get();
+        getBeanCopier(source.getClass(), t.getClass()).copy(source, t, null);
+        if (consumer != null) {
+            consumer.accept(source, t);
+        }
+        return t;
+    }
+
+    /**
      * Copy bean object list
      *
      * @param sources  object list you want copy
@@ -76,74 +92,6 @@ public class BeanUtils {
                 consumer.accept(source, t);
             }
             list.add(t);
-        }
-        return list;
-    }
-
-    /**
-     * convert bean to map
-     *
-     * @param bean source object
-     * @return map
-     */
-    public static <T> Map<String, Object> beanToMap(T bean) {
-        Map<String, Object> map = new HashMap<>();
-        if (bean != null) {
-            BeanMap beanMap = BeanMap.create(bean);
-            for (Object key : beanMap.keySet()) {
-                map.put(String.valueOf(key), beanMap.get(key));
-            }
-        }
-        return map;
-    }
-
-    /**
-     * convert map to bean
-     *
-     * @param map      source map you want converted
-     * @param supplier target object supplier (eg: User::new)
-     * @return target object
-     */
-    public static <T> T mapToBean(Map<String, Object> map, Supplier<T> supplier) {
-        T bean = supplier.get();
-        BeanMap beanMap = BeanMap.create(bean);
-        beanMap.putAll(map);
-        return bean;
-    }
-
-    /**
-     * Convert List<T> to List<Map<String, Object>>
-     *
-     * @param sources source object list
-     * @return List<Map < String, Object>>
-     */
-    public static <T> List<Map<String, Object>> beansToMaps(List<T> sources) {
-        List<Map<String, Object>> list = new ArrayList<>();
-        if (sources != null && sources.size() > 0) {
-            Map<String, Object> map;
-            for (T source : sources) {
-                map = beanToMap(source);
-                list.add(map);
-            }
-        }
-        return list;
-    }
-
-    /**
-     * Convert List<Map<String,Object>> to List<T>
-     *
-     * @param maps     source maps
-     * @param supplier target object supplier (eg: User::new)
-     * @return target object list
-     */
-    public static <T> List<T> mapsToBeans(List<Map<String, Object>> maps, Supplier<T> supplier) {
-        List<T> list = new ArrayList<>();
-        if (maps != null && maps.size() > 0) {
-            Map<String, Object> map;
-            for (Map<String, Object> stringObjectMap : maps) {
-                map = stringObjectMap;
-                list.add(mapToBean(map, supplier));
-            }
         }
         return list;
     }

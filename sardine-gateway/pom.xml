@@ -10,67 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>sardine-gateway</artifactId>
-    <packaging>jar</packaging>
-
-    <dependencies>
-        <!-- Sardine Common -->
-        <dependency>
-            <groupId>com.sardine</groupId>
-            <artifactId>sardine-common</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <!-- Spring Boot -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
-        <!-- Spring Cloud Gateway -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
-        </dependency>
-
-        <!-- Spring Cloud Eureka -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-
-        <!-- Spring Cloud Feign -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-
-        <!-- Spring Boot Configuration Processor -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <!-- Spring Boot Devtools -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
-        </dependency>
-
-        <!-- Sardine Api -->
-        <dependency>
-            <groupId>com.sardine</groupId>
-            <artifactId>sardine-user-api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-    </dependencies>
+    <packaging>pom</packaging>
+    <modules>
+        <module>sardine-gateway-server1</module>
+        <module>sardine-gateway-server2</module>
+        <module>sardine-gateway-door</module>
+    </modules>
 
     <build>
         <plugins>

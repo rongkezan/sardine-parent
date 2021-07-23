@@ -1,7 +1,6 @@
 package com.sardine.common.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,14 +11,12 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import com.sardine.common.exception.SardineRuntimeException;
-import lombok.extern.slf4j.Slf4j;
+import com.sardine.common.exception.SystemException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 /**
  * Jackson工具类
@@ -69,7 +66,7 @@ public class JacksonUtils {
         try {
             return objectMapper.readValue(json, clazz);
         } catch (Exception e) {
-            throw new SardineRuntimeException("Jackson to bean exception", e);
+            throw SystemException.of("Jackson to bean exception", e);
         }
     }
 
@@ -86,7 +83,7 @@ public class JacksonUtils {
         try {
             return objectMapper.readValue(json, reference);
         } catch (Exception e) {
-            throw new SardineRuntimeException("Jackson to bean exception", e);
+            throw SystemException.of("Jackson to bean exception", e);
         }
     }
 
@@ -100,7 +97,7 @@ public class JacksonUtils {
         try {
             return objectMapper.writeValueAsString(object);
         } catch (Exception e) {
-            throw new SardineRuntimeException("Jackson to bean exception", e);
+            throw SystemException.of("Jackson to bean exception", e);
         }
     }
 }

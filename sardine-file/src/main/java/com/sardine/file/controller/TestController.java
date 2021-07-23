@@ -1,7 +1,8 @@
 package com.sardine.file.controller;
 
 import com.sardine.common.entity.http.Result;
-import com.sardine.common.exception.SardineRuntimeException;
+import com.sardine.common.entity.http.Results;
+import com.sardine.common.exception.SystemException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -29,16 +30,16 @@ public class TestController {
     @PostMapping("upload")
     public Result<Void> upload(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty())
-            return Result.failed("File is empty, please choose a file");
+            return Results.failed("File is empty, please choose a file");
         String filename = file.getOriginalFilename();
         String filepath = "D:/";
         File dest = new File(filepath + filename);
         try {
             file.transferTo(dest);
         } catch (IOException e) {
-            throw new SardineRuntimeException("upload failed");
+            throw SystemException.of("upload failed");
         }
-        return Result.success("upload success");
+        return Results.success("upload success");
     }
 
     @PostMapping("/download")
@@ -54,7 +55,7 @@ public class TestController {
             headers.setContentDispositionFormData("attachment", "temp.xlsx");
             return new ResponseEntity<>(bytes, headers, HttpStatus.OK);
         } catch (IOException e) {
-            throw new SardineRuntimeException("文件下载异常");
+            throw SystemException.of("文件下载异常");
         } finally {
             try {
                 if (fis != null)
@@ -67,6 +68,6 @@ public class TestController {
 
     @GetMapping("hello")
     public Result<String> hello(){
-        return Result.success("成功",serverPort);
+        return Results.success("成功",serverPort);
     }
 }

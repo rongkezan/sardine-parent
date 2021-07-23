@@ -21,7 +21,7 @@ public class JwtUtils {
     /**
      * 私钥加密token
      *
-     * @param userDto      载荷中的数据
+     * @param userDto       载荷中的数据
      * @param privateKey    私钥
      * @param expireMinutes 过期时间，单位秒
      * @return
@@ -38,7 +38,7 @@ public class JwtUtils {
     /**
      * 私钥加密token
      *
-     * @param userDto      载荷中的数据
+     * @param userDto       载荷中的数据
      * @param privateKey    私钥字节数组
      * @param expireMinutes 过期时间，单位秒
      * @return

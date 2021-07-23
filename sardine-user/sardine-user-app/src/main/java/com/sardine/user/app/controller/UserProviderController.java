@@ -1,6 +1,7 @@
 package com.sardine.user.app.controller;
 
 import com.sardine.common.entity.http.Result;
+import com.sardine.common.entity.http.Results;
 import com.sardine.user.app.api.UserProviderApi;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ public class UserProviderController implements UserProviderApi {
 
     @GetMapping("count")
     public Result<String> count(){
-        return Result.success("success","Count:" + counter++);
+        return Results.success("success","Count:" + counter++);
     }
 
     @GetMapping("timeout")
@@ -25,6 +26,6 @@ public class UserProviderController implements UserProviderApi {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return Result.success();
+        return Results.success();
     }
 }

@@ -1,6 +1,6 @@
 package com.sardine.common.httpclient;
 
-import com.sardine.common.exception.SardineRuntimeException;
+import com.sardine.common.exception.SystemException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.Consts;
 import org.apache.http.config.ConnectionConfig;
@@ -39,7 +39,7 @@ public class DefaultConfigs {
         try {
             sf = new SSLConnectionSocketFactory(new SSLContextBuilder().loadTrustMaterial(null, (chain, authType) -> true).build());
         } catch (Exception e) {
-            throw new SardineRuntimeException("CreateSimpleConfig Error", e);
+            throw SystemException.of("CreateSimpleConfig Error", e);
         }
         Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create()
                 .register("http", PlainConnectionSocketFactory.getSocketFactory())
@@ -74,7 +74,7 @@ public class DefaultConfigs {
             config.setSslContext(new SSLContextBuilder().loadTrustMaterial(null, (chain, authType) -> true).build());
             return config;
         } catch (Exception e) {
-            throw new SardineRuntimeException("CreateSimpleConfig Error", e);
+            throw SystemException.of("CreateSimpleConfig Error", e);
         }
     }
 

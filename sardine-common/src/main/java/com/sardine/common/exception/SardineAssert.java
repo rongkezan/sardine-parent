@@ -14,25 +14,25 @@ import java.util.function.Supplier;
  */
 public class SardineAssert {
     /**
-     * Assert a boolean expression, throwing an {@code SardineRuntimeException}
+     * Assert a boolean expression, throwing an {@code SystemException}
      * if the expression evaluates to {@code false}.
-     * <p>Call {@link #isTrue} if you wish to throw an {@code SardineRuntimeException}
+     * <p>Call {@link #isTrue} if you wish to throw an {@code SystemException}
      * on an assertion failure.
      * <pre class="code">Assert.state(id == null, "The id property must not already be initialized");</pre>
      * @param expression a boolean expression
      * @param message the exception message to use if the assertion fails
-     * @throws SardineRuntimeException if {@code expression} is {@code false}
+     * @throws SystemException if {@code expression} is {@code false}
      */
     public static void state(boolean expression, String message) {
         if (!expression) {
-            throw new SardineRuntimeException(message);
+            throw SystemException.of(message);
         }
     }
 
     /**
-     * Assert a boolean expression, throwing an {@code SardineRuntimeException}
+     * Assert a boolean expression, throwing an {@code SystemException}
      * if the expression evaluates to {@code false}.
-     * <p>Call {@link #isTrue} if you wish to throw an {@code SardineRuntimeException}
+     * <p>Call {@link #isTrue} if you wish to throw an {@code SystemException}
      * on an assertion failure.
      * <pre class="code">
      * Assert.state(com.sardine.user.app.entity.getId() == null,
@@ -41,17 +41,17 @@ public class SardineAssert {
      * @param expression a boolean expression
      * @param messageSupplier a supplier for the exception message to use if the
      * assertion fails
-     * @throws SardineRuntimeException if {@code expression} is {@code false}
+     * @throws SystemException if {@code expression} is {@code false}
      * @since 5.0
      */
     public static void state(boolean expression, Supplier<String> messageSupplier) {
         if (!expression) {
-            throw new SardineRuntimeException(nullSafeGet(messageSupplier));
+            throw SystemException.of(nullSafeGet(messageSupplier));
         }
     }
 
     /**
-     * Assert a boolean expression, throwing an {@code SardineRuntimeException}
+     * Assert a boolean expression, throwing an {@code SystemException}
      * if the expression evaluates to {@code false}.
      * @deprecated as of 4.3.7, in favor of {@link #state(boolean, String)}
      */
@@ -61,21 +61,21 @@ public class SardineAssert {
     }
 
     /**
-     * Assert a boolean expression, throwing an {@code SardineRuntimeException}
+     * Assert a boolean expression, throwing an {@code SystemException}
      * if the expression evaluates to {@code false}.
      * <pre class="code">Assert.isTrue(i &gt; 0, "The value must be greater than zero");</pre>
      * @param expression a boolean expression
      * @param message the exception message to use if the assertion fails
-     * @throws SardineRuntimeException if {@code expression} is {@code false}
+     * @throws SystemException if {@code expression} is {@code false}
      */
     public static void isTrue(boolean expression, String message) {
         if (!expression) {
-            throw new SardineRuntimeException(message);
+            throw SystemException.of(message);
         }
     }
 
     /**
-     * Assert a boolean expression, throwing an {@code SardineRuntimeException}
+     * Assert a boolean expression, throwing an {@code SystemException}
      * if the expression evaluates to {@code false}.
      * <pre class="code">
      * Assert.isTrue(i &gt; 0, () -&gt; "The value '" + i + "' must be greater than zero");
@@ -83,17 +83,17 @@ public class SardineAssert {
      * @param expression a boolean expression
      * @param messageSupplier a supplier for the exception message to use if the
      * assertion fails
-     * @throws SardineRuntimeException if {@code expression} is {@code false}
+     * @throws SystemException if {@code expression} is {@code false}
      * @since 5.0
      */
     public static void isTrue(boolean expression, Supplier<String> messageSupplier) {
         if (!expression) {
-            throw new SardineRuntimeException(nullSafeGet(messageSupplier));
+            throw SystemException.of(nullSafeGet(messageSupplier));
         }
     }
 
     /**
-     * Assert a boolean expression, throwing an {@code SardineRuntimeException}
+     * Assert a boolean expression, throwing an {@code SystemException}
      * if the expression evaluates to {@code false}.
      * @deprecated as of 4.3.7, in favor of {@link #isTrue(boolean, String)}
      */
@@ -107,11 +107,11 @@ public class SardineAssert {
      * <pre class="code">Assert.isNull(value, "The value must be null");</pre>
      * @param object the object to check
      * @param message the exception message to use if the assertion fails
-     * @throws SardineRuntimeException if the object is not {@code null}
+     * @throws SystemException if the object is not {@code null}
      */
     public static void isNull(@Nullable Object object, String message) {
         if (object != null) {
-            throw new SardineRuntimeException(message);
+            throw SystemException.of(message);
         }
     }
 
@@ -123,12 +123,12 @@ public class SardineAssert {
      * @param object the object to check
      * @param messageSupplier a supplier for the exception message to use if the
      * assertion fails
-     * @throws SardineRuntimeException if the object is not {@code null}
+     * @throws SystemException if the object is not {@code null}
      * @since 5.0
      */
     public static void isNull(@Nullable Object object, Supplier<String> messageSupplier) {
         if (object != null) {
-            throw new SardineRuntimeException(nullSafeGet(messageSupplier));
+            throw SystemException.of(nullSafeGet(messageSupplier));
         }
     }
 
@@ -146,11 +146,11 @@ public class SardineAssert {
      * <pre class="code">Assert.notNull(clazz, "The class must not be null");</pre>
      * @param object the object to check
      * @param message the exception message to use if the assertion fails
-     * @throws SardineRuntimeException if the object is {@code null}
+     * @throws SystemException if the object is {@code null}
      */
     public static void notNull(@Nullable Object object, String message) {
         if (object == null) {
-            throw new SardineRuntimeException(message);
+            throw SystemException.of(message);
         }
     }
 
@@ -163,12 +163,12 @@ public class SardineAssert {
      * @param object the object to check
      * @param messageSupplier a supplier for the exception message to use if the
      * assertion fails
-     * @throws SardineRuntimeException if the object is {@code null}
+     * @throws SystemException if the object is {@code null}
      * @since 5.0
      */
     public static void notNull(@Nullable Object object, Supplier<String> messageSupplier) {
         if (object == null) {
-            throw new SardineRuntimeException(nullSafeGet(messageSupplier));
+            throw SystemException.of(nullSafeGet(messageSupplier));
         }
     }
 
@@ -187,12 +187,12 @@ public class SardineAssert {
      * <pre class="code">Assert.hasLength(name, "Name must not be empty");</pre>
      * @param text the String to check
      * @param message the exception message to use if the assertion fails
-     * @throws SardineRuntimeException if the text is empty
+     * @throws SystemException if the text is empty
      * @see StringUtils#hasLength
      */
     public static void hasLength(@Nullable String text, String message) {
         if (!StringUtils.hasLength(text)) {
-            throw new SardineRuntimeException(message);
+            throw SystemException.of(message);
         }
     }
 
@@ -206,13 +206,13 @@ public class SardineAssert {
      * @param text the String to check
      * @param messageSupplier a supplier for the exception message to use if the
      * assertion fails
-     * @throws SardineRuntimeException if the text is empty
+     * @throws SystemException if the text is empty
      * @since 5.0
      * @see StringUtils#hasLength
      */
     public static void hasLength(@Nullable String text, Supplier<String> messageSupplier) {
         if (!StringUtils.hasLength(text)) {
-            throw new SardineRuntimeException(nullSafeGet(messageSupplier));
+            throw SystemException.of(nullSafeGet(messageSupplier));
         }
     }
 
@@ -233,12 +233,12 @@ public class SardineAssert {
      * <pre class="code">Assert.hasText(name, "'name' must not be empty");</pre>
      * @param text the String to check
      * @param message the exception message to use if the assertion fails
-     * @throws SardineRuntimeException if the text does not contain valid text content
+     * @throws SystemException if the text does not contain valid text content
      * @see StringUtils#hasText
      */
     public static void hasText(@Nullable String text, String message) {
         if (!StringUtils.hasText(text)) {
-            throw new SardineRuntimeException(message);
+            throw SystemException.of(message);
         }
     }
 
@@ -252,13 +252,13 @@ public class SardineAssert {
      * @param text the String to check
      * @param messageSupplier a supplier for the exception message to use if the
      * assertion fails
-     * @throws SardineRuntimeException if the text does not contain valid text content
+     * @throws SystemException if the text does not contain valid text content
      * @since 5.0
      * @see StringUtils#hasText
      */
     public static void hasText(@Nullable String text, Supplier<String> messageSupplier) {
         if (!StringUtils.hasText(text)) {
-            throw new SardineRuntimeException(nullSafeGet(messageSupplier));
+            throw SystemException.of(nullSafeGet(messageSupplier));
         }
     }
 
@@ -279,12 +279,12 @@ public class SardineAssert {
      * @param textToSearch the text to search
      * @param substring the substring to find within the text
      * @param message the exception message to use if the assertion fails
-     * @throws SardineRuntimeException if the text contains the substring
+     * @throws SystemException if the text contains the substring
      */
     public static void doesNotContain(@Nullable String textToSearch, String substring, String message) {
         if (StringUtils.hasLength(textToSearch) && StringUtils.hasLength(substring) &&
                 textToSearch.contains(substring)) {
-            throw new SardineRuntimeException(message);
+            throw SystemException.of(message);
         }
     }
 
@@ -297,13 +297,13 @@ public class SardineAssert {
      * @param substring the substring to find within the text
      * @param messageSupplier a supplier for the exception message to use if the
      * assertion fails
-     * @throws SardineRuntimeException if the text contains the substring
+     * @throws SystemException if the text contains the substring
      * @since 5.0
      */
     public static void doesNotContain(@Nullable String textToSearch, String substring, Supplier<String> messageSupplier) {
         if (StringUtils.hasLength(textToSearch) && StringUtils.hasLength(substring) &&
                 textToSearch.contains(substring)) {
-            throw new SardineRuntimeException(nullSafeGet(messageSupplier));
+            throw SystemException.of(nullSafeGet(messageSupplier));
         }
     }
 
@@ -323,11 +323,11 @@ public class SardineAssert {
      * <pre class="code">Assert.notEmpty(array, "The array must contain elements");</pre>
      * @param array the array to check
      * @param message the exception message to use if the assertion fails
-     * @throws SardineRuntimeException if the object array is {@code null} or contains no elements
+     * @throws SystemException if the object array is {@code null} or contains no elements
      */
     public static void notEmpty(@Nullable Object[] array, String message) {
         if (ObjectUtils.isEmpty(array)) {
-            throw new SardineRuntimeException(message);
+            throw SystemException.of(message);
         }
     }
 
@@ -340,12 +340,12 @@ public class SardineAssert {
      * @param array the array to check
      * @param messageSupplier a supplier for the exception message to use if the
      * assertion fails
-     * @throws SardineRuntimeException if the object array is {@code null} or contains no elements
+     * @throws SystemException if the object array is {@code null} or contains no elements
      * @since 5.0
      */
     public static void notEmpty(@Nullable Object[] array, Supplier<String> messageSupplier) {
         if (ObjectUtils.isEmpty(array)) {
-            throw new SardineRuntimeException(nullSafeGet(messageSupplier));
+            throw SystemException.of(nullSafeGet(messageSupplier));
         }
     }
 
@@ -365,13 +365,13 @@ public class SardineAssert {
      * <pre class="code">Assert.noNullElements(array, "The array must contain non-null elements");</pre>
      * @param array the array to check
      * @param message the exception message to use if the assertion fails
-     * @throws SardineRuntimeException if the object array contains a {@code null} element
+     * @throws SystemException if the object array contains a {@code null} element
      */
     public static void noNullElements(@Nullable Object[] array, String message) {
         if (array != null) {
             for (Object element : array) {
                 if (element == null) {
-                    throw new SardineRuntimeException(message);
+                    throw SystemException.of(message);
                 }
             }
         }
@@ -386,14 +386,14 @@ public class SardineAssert {
      * @param array the array to check
      * @param messageSupplier a supplier for the exception message to use if the
      * assertion fails
-     * @throws SardineRuntimeException if the object array contains a {@code null} element
+     * @throws SystemException if the object array contains a {@code null} element
      * @since 5.0
      */
     public static void noNullElements(@Nullable Object[] array, Supplier<String> messageSupplier) {
         if (array != null) {
             for (Object element : array) {
                 if (element == null) {
-                    throw new SardineRuntimeException(nullSafeGet(messageSupplier));
+                    throw SystemException.of(nullSafeGet(messageSupplier));
                 }
             }
         }
@@ -414,12 +414,12 @@ public class SardineAssert {
      * <pre class="code">Assert.notEmpty(collection, "Collection must contain elements");</pre>
      * @param collection the collection to check
      * @param message the exception message to use if the assertion fails
-     * @throws SardineRuntimeException if the collection is {@code null} or
+     * @throws SystemException if the collection is {@code null} or
      * contains no elements
      */
     public static void notEmpty(@Nullable Collection<?> collection, String message) {
         if (CollectionUtils.isEmpty(collection)) {
-            throw new SardineRuntimeException(message);
+            throw SystemException.of(message);
         }
     }
 
@@ -432,13 +432,13 @@ public class SardineAssert {
      * @param collection the collection to check
      * @param messageSupplier a supplier for the exception message to use if the
      * assertion fails
-     * @throws SardineRuntimeException if the collection is {@code null} or
+     * @throws SystemException if the collection is {@code null} or
      * contains no elements
      * @since 5.0
      */
     public static void notEmpty(@Nullable Collection<?> collection, Supplier<String> messageSupplier) {
         if (CollectionUtils.isEmpty(collection)) {
-            throw new SardineRuntimeException(nullSafeGet(messageSupplier));
+            throw SystemException.of(nullSafeGet(messageSupplier));
         }
     }
 
@@ -459,14 +459,14 @@ public class SardineAssert {
      * <pre class="code">Assert.noNullElements(collection, "Collection must contain non-null elements");</pre>
      * @param collection the collection to check
      * @param message the exception message to use if the assertion fails
-     * @throws SardineRuntimeException if the collection contains a {@code null} element
+     * @throws SystemException if the collection contains a {@code null} element
      * @since 5.2
      */
     public static void noNullElements(@Nullable Collection<?> collection, String message) {
         if (collection != null) {
             for (Object element : collection) {
                 if (element == null) {
-                    throw new SardineRuntimeException(message);
+                    throw SystemException.of(message);
                 }
             }
         }
@@ -481,14 +481,14 @@ public class SardineAssert {
      * @param collection the collection to check
      * @param messageSupplier a supplier for the exception message to use if the
      * assertion fails
-     * @throws SardineRuntimeException if the collection contains a {@code null} element
+     * @throws SystemException if the collection contains a {@code null} element
      * @since 5.2
      */
     public static void noNullElements(@Nullable Collection<?> collection, Supplier<String> messageSupplier) {
         if (collection != null) {
             for (Object element : collection) {
                 if (element == null) {
-                    throw new SardineRuntimeException(nullSafeGet(messageSupplier));
+                    throw SystemException.of(nullSafeGet(messageSupplier));
                 }
             }
         }
@@ -500,11 +500,11 @@ public class SardineAssert {
      * <pre class="code">Assert.notEmpty(map, "Map must contain entries");</pre>
      * @param map the map to check
      * @param message the exception message to use if the assertion fails
-     * @throws SardineRuntimeException if the map is {@code null} or contains no entries
+     * @throws SystemException if the map is {@code null} or contains no entries
      */
     public static void notEmpty(@Nullable Map<?, ?> map, String message) {
         if (CollectionUtils.isEmpty(map)) {
-            throw new SardineRuntimeException(message);
+            throw SystemException.of(message);
         }
     }
 
@@ -517,12 +517,12 @@ public class SardineAssert {
      * @param map the map to check
      * @param messageSupplier a supplier for the exception message to use if the
      * assertion fails
-     * @throws SardineRuntimeException if the map is {@code null} or contains no entries
+     * @throws SystemException if the map is {@code null} or contains no entries
      * @since 5.0
      */
     public static void notEmpty(@Nullable Map<?, ?> map, Supplier<String> messageSupplier) {
         if (CollectionUtils.isEmpty(map)) {
-            throw new SardineRuntimeException(nullSafeGet(messageSupplier));
+            throw SystemException.of(nullSafeGet(messageSupplier));
         }
     }
 
@@ -546,7 +546,7 @@ public class SardineAssert {
      * will be appended. If it ends in a space, the name of the offending object's
      * type will be appended. In any other case, a ":" with a space and the name
      * of the offending object's type will be appended.
-     * @throws SardineRuntimeException if the object is not an instance of type
+     * @throws SystemException if the object is not an instance of type
      */
     public static void isInstanceOf(Class<?> type, @Nullable Object obj, String message) {
         notNull(type, "Type to check against must not be null");
@@ -564,7 +564,7 @@ public class SardineAssert {
      * @param obj the object to check
      * @param messageSupplier a supplier for the exception message to use if the
      * assertion fails. See {@link #isInstanceOf(Class, Object, String)} for details.
-     * @throws SardineRuntimeException if the object is not an instance of type
+     * @throws SystemException if the object is not an instance of type
      * @since 5.0
      */
     public static void isInstanceOf(Class<?> type, @Nullable Object obj, Supplier<String> messageSupplier) {
@@ -579,7 +579,7 @@ public class SardineAssert {
      * <pre class="code">Assert.instanceOf(Foo.class, foo);</pre>
      * @param type the type to check against
      * @param obj the object to check
-     * @throws SardineRuntimeException if the object is not an instance of type
+     * @throws SystemException if the object is not an instance of type
      */
     public static void isInstanceOf(Class<?> type, @Nullable Object obj) {
         isInstanceOf(type, obj, "");
@@ -595,7 +595,7 @@ public class SardineAssert {
      * will be appended. If it ends in a space, the name of the offending sub type
      * will be appended. In any other case, a ":" with a space and the name of the
      * offending sub type will be appended.
-     * @throws SardineRuntimeException if the classes are not assignable
+     * @throws SystemException if the classes are not assignable
      */
     public static void isAssignable(Class<?> superType, @Nullable Class<?> subType, String message) {
         notNull(superType, "Super type to check against must not be null");
@@ -613,7 +613,7 @@ public class SardineAssert {
      * @param subType the sub type to check
      * @param messageSupplier a supplier for the exception message to use if the
      * assertion fails. See {@link #isAssignable(Class, Class, String)} for details.
-     * @throws SardineRuntimeException if the classes are not assignable
+     * @throws SystemException if the classes are not assignable
      * @since 5.0
      */
     public static void isAssignable(Class<?> superType, @Nullable Class<?> subType, Supplier<String> messageSupplier) {
@@ -628,7 +628,7 @@ public class SardineAssert {
      * <pre class="code">Assert.isAssignable(Number.class, myClass);</pre>
      * @param superType the super type to check
      * @param subType the sub type to check
-     * @throws SardineRuntimeException if the classes are not assignable
+     * @throws SystemException if the classes are not assignable
      */
     public static void isAssignable(Class<?> superType, Class<?> subType) {
         isAssignable(superType, subType, "");
@@ -651,7 +651,7 @@ public class SardineAssert {
         if (defaultMessage) {
             result = result + ("Object of class [" + className + "] must be an instance of " + type);
         }
-        throw new SardineRuntimeException(result);
+        throw SystemException.of(result);
     }
 
     private static void assignableCheckFailed(Class<?> superType, @Nullable Class<?> subType, @Nullable String msg) {
@@ -669,7 +669,7 @@ public class SardineAssert {
         if (defaultMessage) {
             result = result + (subType + " is not assignable to " + superType);
         }
-        throw new SardineRuntimeException(result);
+        throw SystemException.of(result);
     }
 
     private static boolean endsWithSeparator(String msg) {

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
  * @author keith
  */
 @Configuration
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.sardine")
 public class RedisApplication {
     public static void main(String[] args) {
         SpringApplication.run(RedisApplication.class, args);

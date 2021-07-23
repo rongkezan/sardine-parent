@@ -17,6 +17,10 @@
         <module>sardine-dubbo</module>
         <module>sardine-websocket</module>
         <module>sardine-zk</module>
+        <module>sardine-gateway-demo1</module>
+        <module>sardine-gateway-demo1</module>
+        <module>sardine-gateway-server1</module>
+        <module>sardine-utils</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

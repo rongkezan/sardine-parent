@@ -1,8 +1,8 @@
 package com.sardine.gateway.door;
 
-import com.sardine.common.entity.http.Result;
-import com.sardine.common.entity.http.Results;
-import com.sardine.common.util.JacksonUtils;
+import com.sardine.utils.JacksonUtils;
+import com.sardine.utils.http.Result;
+import com.sardine.utils.http.Results;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpResponse;

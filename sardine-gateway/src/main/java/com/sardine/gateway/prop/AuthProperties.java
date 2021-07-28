@@ -1,8 +1,8 @@
 package com.sardine.gateway.prop;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+//import org.springframework.boot.context.properties.ConfigurationProperties;
+//import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,8 +13,8 @@ import java.util.List;
  * @author keith
  */
 @Data
-@Component
-@ConfigurationProperties("sardine.gateway.auth")
+//@Component
+//@ConfigurationProperties("sardine.gateway.auth")
 public class AuthProperties {
 
     /** Token名称 */

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@Order(0)
 public class SpringContextUtils implements ApplicationContextAware {
 
     private static ApplicationContext applicationContext;

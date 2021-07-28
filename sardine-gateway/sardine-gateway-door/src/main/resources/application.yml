@@ -31,3 +31,13 @@ spring:
     host: 127.0.0.1
     port: 6379
     timeout: 3000
+sardine:
+  limit-rules:
+    - url: /server1/hello
+      rate-type: overall
+      token-count: 1
+      interval: 1000
+    - url: /server2/hello
+      rate-type: overall
+      token-count: 1
+      interval: 1000

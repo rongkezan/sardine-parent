@@ -12,10 +12,10 @@
     <artifactId>sardine-gateway-door</artifactId>
 
     <dependencies>
-        <!-- Sardine Common -->
+        <!-- Sardine Utils -->
         <dependency>
             <groupId>com.sardine</groupId>
-            <artifactId>sardine-common</artifactId>
+            <artifactId>sardine-utils</artifactId>
             <version>1.0.0</version>
         </dependency>
 
@@ -37,6 +37,13 @@
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>
             <version>3.13.4</version>
+        </dependency>
+
+        <!-- Spring Boot Configuration Processor -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 </project>

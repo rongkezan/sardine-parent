@@ -43,7 +43,7 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedissonClient redissonClient(){
+    public RedissonClient redissonClient() {
         Config config = new Config();
         RedisProperties redisProperties = SpringContextUtils.getBean(RedisProperties.class);
         if (redisProperties == null) {

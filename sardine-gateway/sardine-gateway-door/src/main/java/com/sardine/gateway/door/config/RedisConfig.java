@@ -1,4 +1,4 @@
-package com.sardine.gateway.door;
+package com.sardine.gateway.door.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.Redisson;

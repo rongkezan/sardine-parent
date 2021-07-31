@@ -1,4 +1,4 @@
-package com.sardine.gateway.door;
+package com.sardine.gateway.door.utils;
 
 import com.google.common.net.InetAddresses;
 import lombok.extern.slf4j.Slf4j;
@@ -134,16 +134,14 @@ public final class IpUtils {
                     try {
                         NetworkInterface network = interfaces.nextElement();
                         Enumeration<InetAddress> addresses = network.getInetAddresses();
-                        if (addresses != null) {
-                            while (addresses.hasMoreElements()) {
-                                try {
-                                    InetAddress address = addresses.nextElement();
-                                    if (isValidAddress(address)) {
-                                        inetAddressList.add(address);
-                                    }
-                                } catch (Throwable e) {
-                                    logger.warn("Failed to retriving ip address, " + e.getMessage(), e);
+                        while (addresses.hasMoreElements()) {
+                            try {
+                                InetAddress address = addresses.nextElement();
+                                if (isValidAddress(address)) {
+                                    inetAddressList.add(address);
                                 }
+                            } catch (Throwable e) {
+                                logger.warn("Failed to retriving ip address, " + e.getMessage(), e);
                             }
                         }
                     } catch (Throwable e) {
@@ -167,10 +165,4 @@ public final class IpUtils {
                 && !LOCALHOST.equals(name)
                 && IP_PATTERN.matcher(name).matches());
     }
-
-    public static void main(String[] args) {
-        List<InetAddress> inetAddressList = IpUtils.getLocalAddressList();
-        System.out.println(inetAddressList);
-    }
-
 }

@@ -2,7 +2,7 @@ package com.sardine.gateway.door.service;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import com.sardine.gateway.door.LimiterConfigProperties;
+import com.sardine.gateway.door.config.LimiterConfigProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.Redisson;
 import org.redisson.RedissonRateLimiter;

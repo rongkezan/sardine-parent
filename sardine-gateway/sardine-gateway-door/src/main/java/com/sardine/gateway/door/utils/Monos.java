@@ -1,4 +1,4 @@
-package com.sardine.gateway.door;
+package com.sardine.gateway.door.utils;
 
 import com.sardine.utils.JacksonUtils;
 import com.sardine.utils.http.Result;
@@ -12,12 +12,15 @@ import reactor.netty.ByteBufFlux;
 
 import java.nio.charset.StandardCharsets;
 
+/**
+ * @author keith
+ */
 public class Monos {
 
     public static Mono<Void> writeFailure(ServerHttpResponse response) {
         Result<Void> result = Results.failed();
         DataBuffer buffer = response.bufferFactory().wrap(JacksonUtils.toJson(result).getBytes(StandardCharsets.UTF_8));
-        return response.writeWith(Flux.just(buffer));
+        return response.writeWith(Mono.just(buffer));
     }
 
     public static Mono<Void> writeFailureAndFlush(ServerHttpResponse response) {

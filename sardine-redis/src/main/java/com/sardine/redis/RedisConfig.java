@@ -10,6 +10,7 @@ import org.redisson.api.RedissonClient;
 import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.Config;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -18,14 +19,19 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import javax.annotation.Resource;
+
 /**
  * Redis Config
  *
  * @author keith
  */
 @Configuration
-@DependsOn("springContextUtils")
+@EnableConfigurationProperties(RedisProperties.class)
 public class RedisConfig {
+
+    @Resource
+    private RedisProperties redisProperties;
 
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
@@ -45,10 +51,6 @@ public class RedisConfig {
     @Bean
     public RedissonClient redissonClient() {
         Config config = new Config();
-        RedisProperties redisProperties = SpringContextUtils.getBean(RedisProperties.class);
-        if (redisProperties == null) {
-            throw SystemException.of("Init redis properties failed.");
-        }
         config.useSingleServer().setAddress("redis://" + redisProperties.getHost() + ":" + redisProperties.getPort());
         config.setCodec(new JsonJacksonCodec());
         return Redisson.create(config);

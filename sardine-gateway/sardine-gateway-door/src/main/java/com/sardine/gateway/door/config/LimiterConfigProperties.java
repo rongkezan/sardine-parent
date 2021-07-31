@@ -1,4 +1,4 @@
-package com.sardine.gateway.door;
+package com.sardine.gateway.door.config;
 
 import lombok.Data;
 import org.redisson.api.RateType;

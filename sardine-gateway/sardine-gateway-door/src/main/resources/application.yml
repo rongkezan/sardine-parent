@@ -15,11 +15,6 @@ spring:
           uri: http://127.0.0.1:14101
           filters:
             - StripPrefix=1
-#            - name: RequestRateLimiter
-#              args:
-#                rate-limiter: '#{@defaultRateLimiter}'    # 限流的实现类，Spring的EL表达式，拿到这个Bean
-#                key-resolver: '#{@userKeyResolver}'       # 需要限流的规则
-#                default-rate-limiter.premitPerSecond: 0.5 # 每秒发放令牌个数
         - id: sardine-server2
           predicates:
             - Path=/server2/**

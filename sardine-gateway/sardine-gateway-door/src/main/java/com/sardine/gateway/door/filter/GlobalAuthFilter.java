@@ -1,45 +1,45 @@
 package com.sardine.gateway.door.filter;
 
-import com.sardine.gateway.door.service.RateLimiterService;
-import com.sardine.gateway.door.utils.IpUtils;
-import com.sardine.gateway.door.utils.Monos;
-import lombok.extern.slf4j.Slf4j;
-import org.redisson.api.RRateLimiter;
+import com.sardine.gateway.door.config.AuthProperties;
+import com.sardine.utils.JacksonUtils;
+import com.sardine.utils.http.Results;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
+import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import javax.annotation.Resource;
-import java.util.Optional;
+import java.util.List;
 
 /**
+ * 全局鉴权过滤器
+ *
  * @author keith
  */
-@Slf4j
 @Component
-public class ApiLimitFilter implements GlobalFilter, Ordered {
+public class GlobalAuthFilter implements GlobalFilter, Ordered {
 
     @Resource
-    private RateLimiterService rateLimiterService;
+    private AuthProperties authProperties;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
         HttpHeaders headers = request.getHeaders();
-        String url = request.getURI().getPath();
-        String userId = Optional.ofNullable(headers.get("token")).map(list -> list.get(0)).orElse("");
-        String ip = IpUtils.getIpAddress(request);
-        RRateLimiter rRateLimiter = rateLimiterService.getRateLimiter(ip, url);
-        if (!rRateLimiter.tryAcquire()) {
-            log.info("Request limited, ip = {}, userId = {}, url = {}", ip, userId, url);
-            return Monos.limited(response);
+        List<String> tokens = headers.get(authProperties.getTokenName());
+        if (CollectionUtils.isEmpty(tokens)) {
+            response.setStatusCode(HttpStatus.UNAUTHORIZED);
+            DataBuffer dataBuffer = response.bufferFactory().wrap(JacksonUtils.toJson(Results.failed("No Authorized")).getBytes());
+            return response.writeWith(Mono.just(dataBuffer));
         }
         return chain.filter(exchange);
     }

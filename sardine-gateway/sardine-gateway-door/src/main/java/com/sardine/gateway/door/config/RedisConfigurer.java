@@ -18,7 +18,7 @@ import java.util.List;
 @Slf4j
 @Configuration
 @EnableConfigurationProperties(RedisProperties.class)
-public class RedisConfig {
+public class RedisConfigurer {
 
     @Resource
     private RedisProperties redisProperties;

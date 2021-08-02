@@ -32,12 +32,8 @@ public class LimiterConfigProperties {
          */
         private Long tokenCount;
         /**
-         * Create Token
+         * Create Token Interval
          */
         private Long interval;
-        /**
-         * 可以针对用户下某API精准限流
-         */
-        private String userId;
     }
 }

@@ -1,8 +1,8 @@
 package com.sardine.gateway.door.filter;
 
+import com.sardine.gateway.door.service.RateLimiterService;
 import com.sardine.gateway.door.utils.IpUtils;
 import com.sardine.gateway.door.utils.Monos;
-import com.sardine.gateway.door.service.RateLimiterService;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RRateLimiter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -38,8 +38,8 @@ public class ApiLimitFilter implements GlobalFilter, Ordered {
         String ip = IpUtils.getIpAddress(request);
         RRateLimiter rRateLimiter = rateLimiterService.getRateLimiter(ip, url);
         if (!rRateLimiter.tryAcquire()) {
-            log.info("Request too much. Ip = {}, UserId = {}, Url = {}", ip, userId, url);
-            return Monos.writeFailure(response);
+            log.info("Request limited, ip = {}, userId = {}, url = {}", ip, userId, url);
+            return Monos.limited(response);
         }
         return chain.filter(exchange);
     }

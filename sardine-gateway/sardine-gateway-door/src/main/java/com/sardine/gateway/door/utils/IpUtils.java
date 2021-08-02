@@ -2,6 +2,7 @@ package com.sardine.gateway.door.utils;
 
 import com.google.common.net.InetAddresses;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -61,15 +62,8 @@ public final class IpUtils {
             ip = request.getRemoteAddress().getAddress().getHostAddress();
         }
 
-        log.info("ip x-forwarded-for ={}", headers.getFirst("x-forwarded-for"));
-        log.info("ip Proxy-Client-IP ={}", headers.getFirst("Proxy-Client-IP"));
-        log.info("ip WL-Proxy-Client-IP ={}", headers.getFirst("WL-Proxy-Client-IP"));
-        log.info("ip HTTP_CLIENT_IP ={}", headers.getFirst("HTTP_CLIENT_IP"));
-        log.info("ip HTTP_X_FORWARDED_FOR ={}", headers.getFirst("HTTP_X_FORWARDED_FOR"));
-        log.info("ip X-Real-IP ={}", headers.getFirst("X-Real-IP"));
-        log.info("ip RemoteAddress ={}", request.getRemoteAddress().getAddress().getHostAddress());
-
-        if ("0:0:0:0:0:0:0:1".equals(ip)) {//ipv6
+        // convert ip v6 to ip v4
+        if (StringUtils.equals(ip, "0:0:0:0:0:0:0:1")) {
             ip = "127.0.0.1";
         }
         return ip;

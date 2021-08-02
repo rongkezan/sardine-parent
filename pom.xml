@@ -21,6 +21,7 @@
         <module>sardine-gateway-demo1</module>
         <module>sardine-gateway-server1</module>
         <module>sardine-utils</module>
+        <module>sardine-webflux</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

@@ -23,9 +23,6 @@ public class AuthProperties {
     /** Token名称 */
     private String tokenName = "SardineToken";
 
-    /** 是否允许发送Cookie */
-    private Boolean allowedCredentials = true;
-
     /** 允许的头信息 */
     private String allowedHeader = "*";
 

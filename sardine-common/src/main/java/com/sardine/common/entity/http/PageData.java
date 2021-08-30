@@ -20,17 +20,19 @@ public class PageData<T> implements Serializable {
     private static final long serialVersionUID = -8940366960899264820L;
 
     /** Total record count */
-    private int total;
+    private long total;
 
     /** Page size */
-    private int size;
+    private long size;
 
     /** Total pages */
-    private int pages;
+    private long pages;
 
     /** Current page */
-    private int current;
+    private long current;
 
     /** data records */
     private List<T> records;
+
+
 }

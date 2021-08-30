@@ -5,15 +5,20 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
+import org.redisson.client.codec.StringCodec;
 import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.Config;
 import org.redisson.config.SentinelServersConfig;
+import org.redisson.spring.cache.RedissonSpringCacheManager;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -26,24 +31,34 @@ import java.util.List;
  * @author keith
  */
 @Configuration
+@EnableCaching
 @EnableConfigurationProperties(RedisProperties.class)
 public class RedisConfig {
 
+    private static final String PREFIX = "redis://";
+
+    private static final String SSL_PREFIX = "rediss://";
+
     @Resource
     private RedisProperties redisProperties;
+
+    @Bean
+    public CacheManager cacheManager(RedissonClient redissonClient) {
+        return new RedissonSpringCacheManager(redissonClient);
+    }
 
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
 
-        Jackson2JsonRedisSerializer<?> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
+        GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();  // 序列化方式
+        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
 
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
+        redisTemplate.setValueSerializer(genericJackson2JsonRedisSerializer);
+        redisTemplate.setHashKeySerializer(stringRedisSerializer);
+        redisTemplate.setHashValueSerializer(genericJackson2JsonRedisSerializer);
         return redisTemplate;
     }
 
@@ -75,12 +90,12 @@ public class RedisConfig {
         List<String> nodes = sentinel.getNodes();
         SentinelServersConfig sentinelConfig = config.useSentinelServers().setMasterName(sentinel.getMaster());
         for (String node : nodes) {
-            sentinelConfig.addSentinelAddress("redis://" + node);
+            sentinelConfig.addSentinelAddress(PREFIX + node);
         }
     }
 
     private void singleConfig(Config config){
-        String prefix = redisProperties.isSsl() ? "rediss://" : "redis://";
+        String prefix = redisProperties.isSsl() ? SSL_PREFIX : PREFIX;
         config.useSingleServer()
                 .setAddress(prefix + redisProperties.getHost() + ":" + redisProperties.getPort())
                 .setConnectTimeout((int) redisProperties.getTimeout().toMillis())

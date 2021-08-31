@@ -1,6 +1,7 @@
 package com.sardine.redis;
 
-import org.redisson.api.RMap;
+import com.sardine.utils.BeanUtils;
+import jodd.bean.BeanUtil;
 import org.redisson.api.RedissonClient;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,49 +26,54 @@ public class TestController {
     @Resource
     private CacheService cacheService;
 
-    @GetMapping("get")
-    public Object get(){
-        return redisTemplate.opsForValue().get("a");
-    }
-
-    @GetMapping("set")
-    public String set(){
+    @GetMapping("rt/set1")
+    public String rtSet1() {
         redisTemplate.opsForValue().set("a", new Cat());
         return "success";
     }
 
-    @GetMapping("set3")
-    public String set3(){
+    @GetMapping("rt/get1")
+    public Object rtGet1() {
+        return redisTemplate.opsForValue().get("a");
+    }
+
+    @GetMapping("rt/set2")
+    public String rtSet2() {
         redisTemplate.opsForHash().put("a_map", "aaa", new Cat());
         return "success";
     }
 
-    @GetMapping("get1")
-    public Cat get1(){
-        return redissonClient.<Cat>getBucket("cat").get();
+    @GetMapping("rt/get2")
+    public Object rtGet2() {
+        return redisTemplate.opsForHash().get("a_map", "aaa");
     }
 
-    @GetMapping("set1")
-    public String set1(){
+    @GetMapping("rs/set1")
+    public String rsSet1() {
         redissonClient.<Cat>getBucket("cat").set(new Cat());
         return "success";
     }
 
-    @GetMapping("get2")
-    public Cat get2(){
-        Map<String, Cat> map = redissonClient.getMap("s_map");
-        return map.get("aaa");
+    @GetMapping("rs/get1")
+    public Cat rsGet1() {
+        return redissonClient.<Cat>getBucket("cat").get();
     }
 
-    @GetMapping("set2")
-    public String set2(){
+    @GetMapping("rs/set2")
+    public String rsSet2() {
         Map<String, Cat> map = redissonClient.getMap("s_map");
         map.put("aaa", new Cat());
         return "success";
     }
 
+    @GetMapping("rs/get2")
+    public Cat rsGet2() {
+        Map<String, Cat> map = redissonClient.getMap("s_map");
+        return map.get("aaa");
+    }
+
     @GetMapping("cache")
-    public String getSomething(@RequestParam Long key){
+    public String getSomething(@RequestParam Long key) {
         return cacheService.getSomething(key);
     }
 }

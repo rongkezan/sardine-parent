@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
  * @author keith
@@ -69,5 +70,10 @@ public class TestController {
     @GetMapping("hello")
     public Result<String> hello(){
         return Results.success("成功",serverPort);
+    }
+
+    @GetMapping("decimal")
+    public Result<BigDecimal> decimal(){
+        return Results.success("成功", BigDecimal.valueOf(1.5));
     }
 }

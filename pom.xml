@@ -19,6 +19,7 @@
         <module>sardine-zk</module>
         <module>sardine-utils</module>
         <module>sardine-webflux</module>
+        <module>mybatis-plus-demo</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

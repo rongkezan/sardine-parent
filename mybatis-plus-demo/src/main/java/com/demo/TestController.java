@@ -36,6 +36,6 @@ public class TestController {
         walletDo.setId(id);
         walletDo.setAge(2);
         walletDo.setBalance(BigDecimal.valueOf(1));
-        walletManager.save(walletDo);
+        walletManager.updateById(walletDo);
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
+import java.util.Map;
 
 /**
  * Mybatis 拦截器
@@ -39,21 +40,28 @@ public class MybatisInterceptor implements Interceptor {
             return invocation.proceed();
         }
 
+        Object entity;
+        if (param instanceof Map) {
+            Map<String, Object> map = (Map<String, Object>) param;
+            entity = map.get("et");
+        } else {
+            entity = param;
+        }
         SqlCommandType sqlCommandType = mappedStatement.getSqlCommandType();
         if (SqlCommandType.INSERT == sqlCommandType) {
-            Field[] fields = param.getClass().getDeclaredFields();
+            Field[] fields = entity.getClass().getDeclaredFields();
             for (Field field : fields) {
                 if (StringUtils.equals(field.getName(), CREATE_TIME) || StringUtils.equals(field.getName(), MODIFY_TIME)) {
                     field.setAccessible(true);
-                    field.set(param, LocalDateTime.now());
+                    field.set(entity, LocalDateTime.now());
                 }
             }
         } else if (SqlCommandType.UPDATE == sqlCommandType) {
-            Field[] fields = param.getClass().getDeclaredFields();
+            Field[] fields = entity.getClass().getDeclaredFields();
             for (Field field : fields) {
                 if (StringUtils.equals(field.getName(), MODIFY_TIME)) {
                     field.setAccessible(true);
-                    field.set(param, LocalDateTime.now());
+                    field.set(entity, LocalDateTime.now());
                 }
             }
         }

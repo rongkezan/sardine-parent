@@ -30,6 +30,13 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
 
+        <!-- Mybatis plus dynamic datasource -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+
         <!-- Mybatis plus generator -->
         <dependency>
             <groupId>com.baomidou</groupId>

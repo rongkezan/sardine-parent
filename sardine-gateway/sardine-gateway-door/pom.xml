@@ -12,12 +12,6 @@
     <artifactId>sardine-gateway-door</artifactId>
 
     <dependencies>
-        <!-- Sardine Utils -->
-        <dependency>
-            <groupId>com.sardine</groupId>
-            <artifactId>sardine-utils</artifactId>
-            <version>1.0.0</version>
-        </dependency>
 
         <!-- Spring Cloud Gateway -->
         <dependency>

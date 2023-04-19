@@ -2,7 +2,7 @@ package com.sardine.gateway.door.filter;
 
 import com.sardine.gateway.door.config.AuthProperties;
 import com.sardine.utils.JacksonUtils;
-import com.sardine.utils.http.Results;
+import com.sardine.utils.result.Results;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;

@@ -3,23 +3,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <modules>
-        <module>sardine-registry</module>
         <module>sardine-gateway</module>
         <module>sardine-common</module>
-        <module>sardine-user</module>
-        <module>sardine-sms</module>
-        <module>sardine-file</module>
         <module>sardine-admin</module>
-        <module>sardine-zuul</module>
         <module>sardine-rocketmq</module>
         <module>sardine-nacos</module>
         <module>sardine-redis</module>
         <module>sardine-dubbo</module>
         <module>sardine-websocket</module>
         <module>sardine-zk</module>
-        <module>sardine-utils</module>
         <module>sardine-webflux</module>
-        <module>mybatis-plus-demo</module>
+        <module>sardine-mybatis-plus</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

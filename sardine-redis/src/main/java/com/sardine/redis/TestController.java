@@ -1,7 +1,5 @@
 package com.sardine.redis;
 
-import com.sardine.utils.BeanUtils;
-import jodd.bean.BeanUtil;
 import org.redisson.api.RedissonClient;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;

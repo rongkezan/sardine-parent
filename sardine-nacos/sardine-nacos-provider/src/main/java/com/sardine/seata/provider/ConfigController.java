@@ -1,4 +1,4 @@
-package com.sardine.nacos.provider;
+package com.sardine.seata.provider;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;

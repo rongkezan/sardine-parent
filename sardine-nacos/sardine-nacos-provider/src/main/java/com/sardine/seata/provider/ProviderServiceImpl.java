@@ -1,8 +1,7 @@
-package com.sardine.nacos.provider;
+package com.sardine.seata.provider;
 
-import com.sardine.nacos.provider.api.ProviderService;
+import com.sardine.seata.provider.api.ProviderService;
 import org.apache.dubbo.config.annotation.DubboService;
-import org.springframework.stereotype.Service;
 
 @DubboService
 public class ProviderServiceImpl implements ProviderService {

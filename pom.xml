@@ -14,6 +14,7 @@
         <module>sardine-zk</module>
         <module>sardine-webflux</module>
         <module>sardine-mybatis-plus</module>
+        <module>sardine-seata</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -71,13 +72,6 @@
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
                 <version>${jjwt.version}</version>
-            </dependency>
-
-            <!-- Sharding JDBC -->
-            <dependency>
-                <groupId>org.apache.shardingsphere</groupId>
-                <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
-                <version>${sharding.jdbc.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

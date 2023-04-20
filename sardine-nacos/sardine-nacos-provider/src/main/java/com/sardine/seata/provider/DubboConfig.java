@@ -1,4 +1,4 @@
-package com.sardine.nacos.provider;
+package com.sardine.seata.provider;
 
 import org.apache.dubbo.config.RegistryConfig;
 import org.springframework.context.annotation.Bean;

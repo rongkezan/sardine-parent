@@ -2,92 +2,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <modules>
         <module>sardine-gateway</module>
-        <module>sardine-common</module>
-        <module>sardine-admin</module>
         <module>sardine-rocketmq</module>
         <module>sardine-nacos</module>
         <module>sardine-redis</module>
         <module>sardine-dubbo</module>
         <module>sardine-websocket</module>
-        <module>sardine-zk</module>
-        <module>sardine-webflux</module>
         <module>sardine-mybatis-plus</module>
     </modules>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.5.RELEASE</version>
-        <relativePath/>
-    </parent>
 
     <groupId>com.sardine</groupId>
     <artifactId>sardine-parent</artifactId>
     <version>1.0.0</version>
-    <name>sardine-parent</name>
     <packaging>pom</packaging>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
-        <mybatis.starter.version>1.3.2</mybatis.starter.version>
-        <mybatis.plus.starter.version>3.3.2</mybatis.plus.starter.version>
-        <mysql.version>8.0.11</mysql.version>
-        <common.lang3.version>3.10</common.lang3.version>
-        <jjwt.version>0.9.1</jjwt.version>
-        <sharding.jdbc.version>4.0.0-RC1</sharding.jdbc.version>
-    </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <!-- SpringCloud -->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- Mybatis Plus -->
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis.plus.starter.version}</version>
-            </dependency>
-
-            <!-- Mysql -->
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.version}</version>
-            </dependency>
-
-            <!-- Jwt -->
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
-                <version>${jjwt.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <dependencies>
-        <!-- Common Lang3 -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${common.lang3.version}</version>
-        </dependency>
-
-        <!-- Lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-    </dependencies>
 </project>

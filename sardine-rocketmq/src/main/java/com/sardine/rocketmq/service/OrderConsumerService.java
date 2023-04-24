@@ -1,6 +1,6 @@
 package com.sardine.rocketmq.service;
 
-import com.sardine.rocketmq.entity.Order;
+import com.sardine.rocketmq.entity.OrderDo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.spring.annotation.ConsumeMode;
 import org.apache.rocketmq.spring.annotation.MessageModel;
@@ -20,10 +20,10 @@ import org.springframework.stereotype.Component;
         messageModel = MessageModel.CLUSTERING,
         consumeMode = ConsumeMode.ORDERLY
 )
-public class OrderConsumerService implements RocketMQListener<Order> {
+public class OrderConsumerService implements RocketMQListener<OrderDo> {
 
     @Override
-    public void onMessage(Order order) {
-        log.info("接收普通消息结果: {}", order);
+    public void onMessage(OrderDo orderDo) {
+        log.info("接收普通消息结果: {}", orderDo);
     }
 }

@@ -3,6 +3,11 @@ server:
 spring:
   application:
     name: sardine-rocketmq
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/swan?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
 rocketMq:
   name-server: 127.0.0.1:9876
   producer:

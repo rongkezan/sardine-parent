@@ -14,7 +14,6 @@
         <module>sardine-zk</module>
         <module>sardine-webflux</module>
         <module>sardine-mybatis-plus</module>
-        <module>sardine-seata</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

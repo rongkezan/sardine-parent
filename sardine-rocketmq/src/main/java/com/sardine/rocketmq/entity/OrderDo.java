@@ -1,17 +1,20 @@
 package com.sardine.rocketmq.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-public class Order {
+@TableName("tb_order")
+public class OrderDo {
 
     /**
      * 订单ID
      */
-    private Long orderId = 100L;
+    private Long orderId = IdWorker.getId();
 
     /**
      * 商品名称

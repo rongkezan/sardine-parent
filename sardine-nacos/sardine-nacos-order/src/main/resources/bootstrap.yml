@@ -1,0 +1,24 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: sardine-nacos-order
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/swan?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+  cloud:
+    nacos:
+      config:
+        server-addr: http://127.0.0.1:8848
+        namespace: sardine
+        file-extension: yml
+      discovery:
+        server-addr: http://127.0.0.1:8848
+        namespace: sardine
+      username: nacos
+      password: nacos
+feign:
+  sentinel:
+    enabled: true

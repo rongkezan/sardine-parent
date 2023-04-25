@@ -22,3 +22,8 @@ spring:
 feign:
   sentinel:
     enabled: true
+seata:
+  tx-service-group: mygroup
+  service:
+    vgroup-mapping:
+      mygroup: default

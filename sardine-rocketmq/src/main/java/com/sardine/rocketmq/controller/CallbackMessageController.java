@@ -8,22 +8,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
-/**
- * 发送普通消息
- *
- * @author keith
- */
 @Slf4j
 @RestController
-public class MessageController {
+public class CallbackMessageController {
 
     @Resource
     private RocketMQTemplate rocketMQTemplate;
 
-    @GetMapping("sendMessage")
-    public String sendMessage() {
+    @GetMapping("sendCallbackMessage")
+    public String sendCallbackMessage(){
         log.info("发送消息");
-        rocketMQTemplate.convertAndSend("test-topic:tag1", new OrderDo());
-        return "success";
+        return rocketMQTemplate.sendAndReceive("callback-topic:tag1", new OrderDo(), String.class);
     }
 }

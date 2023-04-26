@@ -1,4 +1,4 @@
-package com.example.entity.model;
+package com.sardine.mybatis.entity.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -26,19 +26,19 @@ public class UserDo implements Serializable {
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
-    private String username;
+    private String username = "zhangsan";
 
-    private String password;
+    private String password = "123456";
 
-    private String phone;
+    private String phone = "12845451145";
 
-    private String realName;
+    private String realName = "张三";
 
     private String avatar;
 
-    private Integer gender;
+    private Integer gender = 1;
 
-    private Boolean status;
+    private Boolean status = false;
 
     private Boolean isDeleted;
 

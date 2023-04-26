@@ -1,4 +1,4 @@
-package com.example;
+package com.sardine.mybatis;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

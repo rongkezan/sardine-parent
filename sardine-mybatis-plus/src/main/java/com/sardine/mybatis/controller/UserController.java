@@ -1,8 +1,8 @@
-package com.example.controller;
+package com.sardine.mybatis.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.example.entity.model.UserDo;
-import com.example.manager.UserManager;
+import com.sardine.mybatis.entity.model.UserDo;
+import com.sardine.mybatis.manager.UserManager;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -22,9 +22,9 @@ public class UserController {
     @Resource
     private UserManager userManager;
 
-    @PostMapping("insert")
-    public void insert(@RequestBody UserDo user){
-        userManager.save(user);
+    @GetMapping("insert")
+    public void insert(){
+        userManager.save(new UserDo());
     }
 
     @GetMapping("select")

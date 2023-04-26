@@ -1,6 +1,6 @@
-package com.example.manager;
+package com.sardine.mybatis.manager;
 
-import com.example.entity.model.UserDo;
+import com.sardine.mybatis.entity.model.UserDo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

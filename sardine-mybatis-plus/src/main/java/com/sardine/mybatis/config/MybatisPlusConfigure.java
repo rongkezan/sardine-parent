@@ -1,4 +1,4 @@
-package com.example.config;
+package com.sardine.mybatis.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
@@ -18,13 +18,8 @@ import java.util.Map;
  * @author keith
  */
 @Configuration
-@MapperScan("com.example.mapper")
+@MapperScan("com.sardine.mybatis.mapper")
 public class MybatisPlusConfigure {
-
-    @Bean
-    public TableNameHandler tableNameHandler() {
-        return new MonthlyTableNameHandler();
-    }
 
     /**
      * Mybatis plus 分页插件
@@ -34,9 +29,6 @@ public class MybatisPlusConfigure {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         PaginationInnerInterceptor innerInterceptor = new PaginationInnerInterceptor(DbType.MYSQL);
         interceptor.addInnerInterceptor(innerInterceptor);
-        DynamicTableNameInnerInterceptor dynamicTableNameInnerInterceptor = new DynamicTableNameInnerInterceptor();
-        dynamicTableNameInnerInterceptor.setTableNameHandler(new MonthlyTableNameHandler());
-        interceptor.addInnerInterceptor(dynamicTableNameInnerInterceptor);
         return interceptor;
     }
 }

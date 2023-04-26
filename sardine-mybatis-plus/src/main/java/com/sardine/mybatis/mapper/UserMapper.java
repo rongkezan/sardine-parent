@@ -1,6 +1,6 @@
-package com.example.mapper;
+package com.sardine.mybatis.mapper;
 
-import com.example.entity.model.UserDo;
+import com.sardine.mybatis.entity.model.UserDo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

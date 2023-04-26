@@ -6,11 +6,13 @@
 
     <groupId>com.sardine</groupId>
     <artifactId>sardine-nacos</artifactId>
+    <packaging>pom</packaging>
     <version>1.0.0</version>
 
     <modules>
         <module>sardine-nacos-api</module>
         <module>sardine-nacos-order</module>
         <module>sardine-nacos-storage</module>
+        <module>sardine-nacos-account</module>
     </modules>
 </project>

@@ -11,6 +11,7 @@
         <module>sardine-dubbo</module>
         <module>sardine-websocket</module>
         <module>sardine-mybatis-plus</module>
+        <module>sardine-nacos-account</module>
     </modules>
 
     <groupId>com.sardine</groupId>

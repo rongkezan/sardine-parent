@@ -21,7 +21,7 @@ public class OrderService {
     @GlobalTransactional
     @Transactional
     public void placeOrder(OrderDo order) {
-        // 模拟 库存已经扣减，但是新增订单失败 的情况
+        // 模拟A->B->C， 库存，余额已经扣减，但是新增订单失败
         storageClient.reduce(10L, 1);
         int a = 1 / 0;
         orderMapper.insert(order);

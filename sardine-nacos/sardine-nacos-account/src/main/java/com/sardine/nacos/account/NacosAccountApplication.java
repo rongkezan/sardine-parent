@@ -1,4 +1,4 @@
-package com.sardine.nacos.storage;
+package com.sardine.nacos.account;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -6,17 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
-/**
- * Nacos Application
- *
- * @author keith
- */
 @SpringBootApplication
-@MapperScan("com.sardine.nacos.storage.mapper")
+@MapperScan("com.sardine.nacos.account.mapper")
 @EnableFeignClients("com.sardine.nacos.api")
 @ComponentScan("com.sardine.nacos")
-public class NacosStorageApplication {
+public class NacosAccountApplication {
     public static void main(String[] args) {
-        SpringApplication.run(NacosStorageApplication.class, args);
+        SpringApplication.run(NacosAccountApplication.class, args);
     }
 }

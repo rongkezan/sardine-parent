@@ -1,7 +1,5 @@
 package com.sardine.gateway.door.filter;
 
-import com.alibaba.nacos.common.utils.JacksonUtils;
-import com.sardine.common.entity.Results;
 import com.sardine.gateway.door.service.RateLimiterService;
 import com.sardine.gateway.door.utils.IpUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +41,7 @@ public class GlobalApiLimitFilter implements GlobalFilter, Ordered {
             log.info("Request limited, ip = {}, url = {}", ip, url);
             response.setStatusCode(HttpStatus.TOO_MANY_REQUESTS);
             response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
-            DataBuffer buffer = response.bufferFactory().wrap(JacksonUtils.toJson(Results.failed("Your request has been limited.")).getBytes(StandardCharsets.UTF_8));
+            DataBuffer buffer = response.bufferFactory().wrap("Your request has been limited.".getBytes(StandardCharsets.UTF_8));
             return response.writeWith(Mono.just(buffer));
         }
         return chain.filter(exchange);

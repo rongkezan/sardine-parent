@@ -1,8 +1,6 @@
 package com.sardine.gateway.door.filter;
 
 import com.sardine.gateway.door.config.AuthProperties;
-import com.sardine.utils.JacksonUtils;
-import com.sardine.utils.result.Results;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -38,7 +36,7 @@ public class GlobalAuthFilter implements GlobalFilter, Ordered {
         List<String> tokens = headers.get(authProperties.getTokenName());
         if (CollectionUtils.isEmpty(tokens)) {
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
-            DataBuffer dataBuffer = response.bufferFactory().wrap(JacksonUtils.toJson(Results.failed("No Authorized")).getBytes());
+            DataBuffer dataBuffer = response.bufferFactory().wrap("No Authorized".getBytes());
             return response.writeWith(Mono.just(dataBuffer));
         }
         return chain.filter(exchange);

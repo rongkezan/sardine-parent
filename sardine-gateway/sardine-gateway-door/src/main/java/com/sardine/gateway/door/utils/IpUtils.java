@@ -1,7 +1,6 @@
 package com.sardine.gateway.door.utils;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 
@@ -49,6 +48,6 @@ public final class IpUtils {
     }
 
     private static boolean notFound(String ip){
-        return ip == null || ip.length() == 0 || StringUtils.equalsIgnoreCase(UNKNOWN, ip);
+        return ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip);
     }
 }

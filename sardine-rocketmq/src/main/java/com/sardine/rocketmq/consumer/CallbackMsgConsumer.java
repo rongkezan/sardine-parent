@@ -1,4 +1,4 @@
-package com.sardine.rocketmq.service;
+package com.sardine.rocketmq.consumer;
 
 import com.sardine.rocketmq.entity.OrderDo;
 import lombok.extern.slf4j.Slf4j;
@@ -11,17 +11,20 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RocketMQMessageListener(
-        topic = "callback-topic", 			    // topic：和生产者发送的topic相同
-        consumerGroup = "callback-msg-group",   // group：不用和生产者group相同
-        selectorExpression = "*",               // tag
+        // topic：和生产者发送的topic相同
+        topic = "send-and-receive",
+        consumerGroup = "send-and-receive",
+        selectorExpression = "*",
+        // BROADCASTING: 广播模式，消费组中每台机器都能收到消息
+        // CLUSTERING: 集群模式，消费组中只有一台机器能收到消息
         messageModel = MessageModel.CLUSTERING,
         consumeMode = ConsumeMode.ORDERLY
 )
-public class OrderCallbackConsumerService implements RocketMQReplyListener<OrderDo, String> {
+public class CallbackMsgConsumer implements RocketMQReplyListener<OrderDo, String> {
 
     @Override
     public String onMessage(OrderDo message) {
-        log.info("接收callback消息: {}", message);
-        return "接收callback消息成功！";
+        log.info("接收回调消息结果: {}", message);
+        return "接收回调消息成功！";
     }
 }

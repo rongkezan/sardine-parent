@@ -1,4 +1,4 @@
-package com.sardine.rocketmq.service;
+package com.sardine.rocketmq.consumer;
 
 import com.sardine.rocketmq.entity.OrderDo;
 import lombok.extern.slf4j.Slf4j;
@@ -8,22 +8,22 @@ import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.springframework.stereotype.Component;
 
-/**
- * @author keith
- */
 @Slf4j
 @Component
 @RocketMQMessageListener(
-        topic = "test-topic", 			        // topic：和生产者发送的topic相同
-        consumerGroup = "msg-group",            // group：不用和生产者group相同
-        selectorExpression = "*",               // tag
+        // topic：和生产者发送的topic相同
+        topic = "sync-send-orderly",
+        consumerGroup = "sync-send-orderly",
+        selectorExpression = "*",
+        // BROADCASTING: 广播模式，消费组中每台机器都能收到消息
+        // CLUSTERING: 集群模式，消费组中只有一台机器能收到消息
         messageModel = MessageModel.CLUSTERING,
         consumeMode = ConsumeMode.ORDERLY
 )
-public class OrderConsumerService implements RocketMQListener<OrderDo> {
+public class OrderMsgConsumer implements RocketMQListener<OrderDo> {
 
     @Override
     public void onMessage(OrderDo orderDo) {
-        log.info("接收普通消息结果: {}", orderDo);
+        log.info("接收顺序消息结果: {}", orderDo);
     }
 }

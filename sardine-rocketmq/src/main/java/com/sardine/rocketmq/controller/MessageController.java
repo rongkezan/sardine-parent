@@ -84,7 +84,8 @@ public class MessageController {
         // 延迟等级 0 不延迟，1 延时1s，2 延时5s，3 延时10s，4 延时 30s，以此类推。。。
         // messageDelayLevel=1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h
         rocketMQTemplate.syncSend("sync-send-delay",
-                MessageBuilder.withPayload(new OrderDo().setStatusName("延迟消费5秒")).build(), 3000, 2);
+                MessageBuilder.withPayload(new OrderDo().setStatusName("延迟消费5秒")).build(),
+                3000, 2);
         return "延时消息已发送 5s延迟";
     }
 

@@ -1,4 +1,4 @@
-package com.sardine.algorithm.thread;
+package com.sardine.algorithm;
 
 /**
  * 多线程交替打印 1-100

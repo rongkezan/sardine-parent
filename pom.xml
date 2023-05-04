@@ -3,6 +3,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.sardine</groupId>
+    <artifactId>sardine-parent</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <modules>
         <module>sardine-gateway</module>
         <module>sardine-rocketmq</module>
@@ -11,12 +21,8 @@
         <module>sardine-dubbo</module>
         <module>sardine-websocket</module>
         <module>sardine-mybatis-plus</module>
-        <module>sardine-nacos-account</module>
+        <module>sardine-shardingshpere</module>
+        <module>sardine-algorithm</module>
     </modules>
-
-    <groupId>com.sardine</groupId>
-    <artifactId>sardine-parent</artifactId>
-    <version>1.0.0</version>
-    <packaging>pom</packaging>
 
 </project>

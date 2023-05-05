@@ -19,6 +19,10 @@ spring:
         namespace: sardine
       username: nacos
       password: nacos
+    sentinel:
+      transport:
+        dashboard: http://127.0.0.1:8080
+        port: 8719
 feign:
   sentinel:
     enabled: true

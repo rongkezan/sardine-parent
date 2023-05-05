@@ -11,4 +11,7 @@ public interface AccountClient {
 
     @GetMapping("reduce")
     void reduce(@RequestParam("accountId") Long accountId, @RequestParam("amount") BigDecimal amount);
+
+    @GetMapping("hello1")
+    void hello();
 }

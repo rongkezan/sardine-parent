@@ -95,6 +95,12 @@
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
         </dependency>
 
+        <!-- Spring Cloud Alibaba Sleuth -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+        </dependency>
+
         <!-- Spring Cloud Alibaba Seata -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

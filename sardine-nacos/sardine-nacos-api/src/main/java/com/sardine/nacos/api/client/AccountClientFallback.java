@@ -13,4 +13,9 @@ public class AccountClientFallback implements AccountClient {
     public void reduce(Long accountId, BigDecimal amount) {
         log.error("余额扣减失败, AccountId: {}, 金额: {}", accountId, amount);
     }
+
+    @Override
+    public void hello() {
+        log.error("Account Service Say Hello Failed!");
+    }
 }

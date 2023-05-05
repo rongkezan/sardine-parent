@@ -15,4 +15,7 @@ public interface StorageClient {
      */
     @GetMapping("reduce")
     void reduce(@RequestParam("goodsId") Long goodsId, @RequestParam("count") int count);
+
+    @GetMapping("hello1")
+    void hello();
 }

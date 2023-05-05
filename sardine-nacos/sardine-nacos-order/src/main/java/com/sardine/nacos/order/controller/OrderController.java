@@ -18,4 +18,10 @@ public class OrderController {
         orderService.placeOrder(new OrderDo());
         return "success";
     }
+
+    @GetMapping("hello")
+    public String hello(){
+        orderService.hello();
+        return "Hello World";
+    }
 }

@@ -11,4 +11,9 @@ public class StorageClientFallback implements StorageClient {
     public void reduce(Long goodsId, int count) {
         log.error("库存扣减失败, GoodsId: {}, 数量: {}", goodsId, count);
     }
+
+    @Override
+    public void hello() {
+        log.error("Storage Service Say Hello Failed!");
+    }
 }

@@ -23,6 +23,11 @@ spring:
       transport:
         dashboard: http://127.0.0.1:8080
         port: 8719
+  zipkin:
+    base-url: http://127.0.0.1:9411
+  sleuth:
+    sampler:
+      rate: 1
 feign:
   sentinel:
     enabled: true

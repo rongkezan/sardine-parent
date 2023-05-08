@@ -5,13 +5,15 @@ import org.apache.shardingsphere.api.sharding.standard.RangeShardingValue;
 
 import java.util.Collection;
 
-public class MyRangeTableAlgorithm implements RangeShardingAlgorithm<Long> {
+public class MyRangeTableAlgorithm implements RangeShardingAlgorithm<Integer> {
 
     @Override
-    public Collection<String> doSharding(Collection<String> collection, RangeShardingValue<Long> rangeShardingValue) {
+    public Collection<String> doSharding(Collection<String> collection, RangeShardingValue<Integer> rangeShardingValue) {
         // 实现按照 Between 进行范围分片，得到上限和下限，进行一些计算
-        Long lowerEndpoint = rangeShardingValue.getValueRange().lowerEndpoint();
-        Long upperEndpoint = rangeShardingValue.getValueRange().upperEndpoint();
+        Integer lowerEndpoint = rangeShardingValue.getValueRange().lowerEndpoint();
+        Integer upperEndpoint = rangeShardingValue.getValueRange().upperEndpoint();
+        System.out.println("lowerEndpoint:" + lowerEndpoint);
+        System.out.println("upperEndpoint:" + upperEndpoint);
         // 对于我们这个奇偶分离的场景，大部分范围查询都是两张表都要查
         return collection;
     }

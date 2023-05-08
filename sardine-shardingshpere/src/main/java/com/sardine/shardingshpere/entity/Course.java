@@ -8,4 +8,6 @@ public class Course {
     private Long cid;
 
     private String cname;
+
+    private Integer score;
 }

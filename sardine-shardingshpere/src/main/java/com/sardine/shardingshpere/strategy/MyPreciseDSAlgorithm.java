@@ -6,6 +6,9 @@ import org.apache.shardingsphere.api.sharding.standard.PreciseShardingValue;
 import java.math.BigInteger;
 import java.util.Collection;
 
+/**
+ * 根据cid进行取模分片
+ */
 public class MyPreciseDSAlgorithm implements PreciseShardingAlgorithm<Long> {
 
     @Override

@@ -14,6 +14,8 @@ import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -57,7 +59,7 @@ public class TxMsgConsumer implements RocketMQListener<OrderDo> {
             } catch (Exception e) {
                 // 执行本地事务失败，回滚消息
                 log.warn("本地事务执行失败，回滚事务消息，arg: {}", arg, e);
-                localTransactions.put(order.getOrderId().toString(), RocketMQLocalTransactionState.COMMIT);
+                localTransactions.put(order.getOrderId().toString(), RocketMQLocalTransactionState.ROLLBACK);
                 return RocketMQLocalTransactionState.ROLLBACK;
             }
             // 执行本地事务成功，提交消息
